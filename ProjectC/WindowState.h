@@ -6,6 +6,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+//CLASSES
+#include "Game.h"
+#include "Unit.h"
+
 #pragma once
 
 class WindowState
@@ -15,6 +19,10 @@ private:
 	sf::VideoMode videoMode;
 	sf::RenderWindow* window;
 	sf::Event event;
+	Game* game;
+	Unit* player;
+	Unit* enemy;
+
 
 	//Private Functions
 	void VarInit();
@@ -32,8 +40,6 @@ public:
 	void update();
 	void updateEv();
 	void render();
-
-
 
 };
 

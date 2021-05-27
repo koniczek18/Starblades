@@ -1,0 +1,34 @@
+
+Game states:
+0) Main menu
+1) Settings
+2) New Game (Character select)
+3) Shop
+4) Path selection
+5) Combat
+6) Result screen
+
+Unit types:
+1)Warrior
+2)Mage
+3)Rouge
+11)enemy id1
+12)enemy id2
+etc.
+
+Status types:
+<int ID, int y(duration), int x(effect_str)>
+ID:
+0)restore x-health for y-turns
+11)deal bleeding(phisical) x-damage for y-turns
+12)deal toxin x-damage for y-turns
+13)deal electric x-damage for y-turns
+14)deal celestial x-damage for y-turns
+15)deal doom x-damage for y-turns
+21)increase phisical resistances by x for y-turns
+22)increase toxin resistances by x for y-turns
+23)increase electric resistances by x for y-turns
+24)increase celesial resistances by x for y-turns
+25)increase doom resistances by x for y-turns
+
+

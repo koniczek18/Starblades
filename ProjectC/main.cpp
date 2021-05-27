@@ -12,11 +12,14 @@
 
 //CLASSES
 #include "WindowState.h"
+#include "Game.h"
+#include "Unit.h"
 
 //MAIN CODE
 int main() 
 {
     WindowState windowState;
+
 
     while (windowState.isWindowOpen())
     {
@@ -26,6 +29,7 @@ int main()
         //Render
         windowState.render();
     }
+
 
     return 0;
 }

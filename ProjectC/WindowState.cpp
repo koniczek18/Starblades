@@ -4,6 +4,9 @@ void WindowState::VarInit()
 {
 	std::cout << "VarInit() started..." << std::endl;
 	this->window = nullptr;
+	this->game = new Game;
+	this->player = new Unit;
+	this->enemy = new Unit;
 	std::cout << "VarInit() finished..." << std::endl;
 }
 
@@ -28,6 +31,12 @@ WindowState::~WindowState()
 {
 	delete this->window;
 	std::cout << "Window deleted..." << std::endl;
+	delete this->game;
+	std::cout << "Game class deleted..." << std::endl;
+	delete this->player;
+	std::cout << "Player (unit class) deleted..." << std::endl;
+	delete this->enemy;
+	std::cout << "Enemy (unit class) deleted..." << std::endl;
 }
 
 const bool WindowState::isWindowOpen()
