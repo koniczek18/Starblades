@@ -1,37 +1,30 @@
-#include <iostream>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 
-/*
-Game states:
-0) Main menu
-1) Settings
-2) New Game (Character select)
-3) Shop
-4) Path selection
-5) Combat
-6) Result screen
-*/
+#include "MainMenu.h"
 
 #pragma once
+
 class Game
 {
 private:
-	//Variables
-	unsigned int gameState;
 
-
-	//Private Functions
-	void variablesInit();
+	sf::RenderWindow* renderWindow;
+	std::string gameState="Main menu";
+	MainMenu mainMenu;
+	sf::Event ev;
 
 public:
-	//Constructor|Destructor
+
 	Game();
 	~Game();
 
-	//Accessors
-	const unsigned int getGameState();
+	bool isGameRunning();
 
-	//Functions
-	void changeGameState(int a);
-
+	void update();
+	void updateEvents();
+	void render();
 };
 

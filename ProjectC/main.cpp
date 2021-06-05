@@ -1,35 +1,19 @@
-﻿//STD
-#include <iostream>
-#include <vector>
-#include <map>
-#include <utility>
-#include <tuple>
-
-//SFML
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 
-//CLASSES
-#include "WindowState.h"
 #include "Game.h"
-#include "Unit.h"
 
-//MAIN CODE
-int main() 
+int main()
 {
-    WindowState windowState;
+	Game game;
 
+	while (game.isGameRunning())
+	{
+		game.update();
+		game.render();
+	}
 
-    while (windowState.isWindowOpen())
-    {
-        //Update
-        windowState.update();
-
-        //Render
-        windowState.render();
-    }
-
-
-    return 0;
+	return 0;
 }

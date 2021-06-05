@@ -1,35 +1,49 @@
 #include "Game.h"
 
-void Game::variablesInit()
-{
-	gameState = 0;
-}
-
 Game::Game()
 {
-	variablesInit();
+	this->renderWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Starblades", sf::Style::Titlebar | sf::Style::Close);
 }
 
 Game::~Game()
 {
-
+	delete this->renderWindow;
 }
 
-const unsigned int Game::getGameState()
+bool Game::isGameRunning()
 {
-	return this->gameState;
+	return this->renderWindow->isOpen();
 }
 
-void Game::changeGameState(int a)
+void Game::update()
 {
-	if (a >= 0)
+	this->updateEvents();
+}
+
+void Game::updateEvents()
+{
+	while (this->renderWindow->pollEvent(this->ev))
 	{
-		this->gameState = a;
-		std::cout << "Game state changed to :" << a << std::endl;
+		switch (this->ev.type)
+		{
+		case sf::Event::Closed:
+			this->renderWindow->close();
+		}
 	}
-	else
+}
+
+void Game::render()
+{
+	//
+	this->renderWindow->clear(sf::Color::Black);
+	//
+
+	if (gameState == "Main menu")
 	{
-		std::cout << "Error averted, tried to change game state to: " << a << std::endl;
-		std::cout << "Current game state: " << gameState << std::endl;
+		mainMenu.render(*renderWindow);
 	}
+
+	//
+	this->renderWindow->display();
+	//
 }
