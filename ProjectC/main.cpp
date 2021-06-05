@@ -8,10 +8,12 @@
 int main()
 {
 	Game game;
-
+	sf::Time elapsed;
+	sf::Clock clock;
 	while (game.isGameRunning())
 	{
-		game.update();
+		elapsed = clock.restart();
+		game.update(elapsed);
 		game.render();
 	}
 

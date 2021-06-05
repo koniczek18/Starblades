@@ -16,6 +16,7 @@ private:
 	MainMenu mainMenu;
 	sf::Event ev;
 
+
 public:
 
 	Game();
@@ -23,7 +24,8 @@ public:
 
 	bool isGameRunning();
 
-	void update();
+
+	void update(sf::Time& elapsed);
 	void updateEvents();
 	void render();
 };

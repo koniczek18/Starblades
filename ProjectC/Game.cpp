@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-	this->renderWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Starblades", sf::Style::Titlebar | sf::Style::Close);
+	this->renderWindow = new sf::RenderWindow(sf::VideoMode(1280, 720), "Starblades", sf::Style::Titlebar | sf::Style::Close);
 }
 
 Game::~Game()
@@ -15,9 +15,13 @@ bool Game::isGameRunning()
 	return this->renderWindow->isOpen();
 }
 
-void Game::update()
+void Game::update(sf::Time& elapsed)
 {
 	this->updateEvents();
+	if (gameState == "Main menu")
+	{
+		mainMenu.update(elapsed);
+	}
 }
 
 void Game::updateEvents()
@@ -47,3 +51,4 @@ void Game::render()
 	this->renderWindow->display();
 	//
 }
+
