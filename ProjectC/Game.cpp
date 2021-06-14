@@ -22,6 +22,14 @@ void Game::update(sf::Time& elapsed)
 	{
 		mainMenu.update(elapsed);
 	}
+	if (gameState == "Help")
+	{
+		help.update(elapsed);
+	}
+	if (gameState == "Gameplay")
+	{
+		gameplay.update(elapsed);
+	}
 }
 
 void Game::updateEvents()
@@ -44,6 +52,10 @@ void Game::updateEvents()
 				else if (gameState == "Help")
 				{
 					help.click(mouse_position,this);
+				}
+				else if (gameState == "Gameplay")
+				{
+					gameplay.click(mouse_position, this);
 				}
 			}
 
