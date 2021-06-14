@@ -39,9 +39,11 @@ void Game::updateEvents()
 				sf::Vector2f mouse_position = renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*renderWindow));
 				if (gameState == "Main menu")
 				{
-
 					mainMenu.click(mouse_position,this);
-
+				}
+				else if (gameState == "Help")
+				{
+					help.click(mouse_position,this);
 				}
 			}
 
@@ -58,6 +60,14 @@ void Game::render()
 	if (gameState == "Main menu")
 	{
 		mainMenu.render(*renderWindow);
+	}
+	else if (gameState == "Help")
+	{
+		help.render(*renderWindow);
+	}
+	else if (gameState == "Gameplay")
+	{
+		gameplay.render(*renderWindow);
 	}
 
 	//

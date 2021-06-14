@@ -73,6 +73,10 @@ void MainMenu::click(sf::Vector2f& pos,Game *game)
 	{
 		game->changeScene("Help");
 	}
+	else if (graj.getGlobalBounds().contains(pos))
+	{
+		game->changeScene("Gameplay");
+	}
 
 }
 

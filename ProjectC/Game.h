@@ -5,6 +5,7 @@
 
 #include "MainMenu.h"
 #include "Gameplay.h"
+#include "Help.h"
 
 #pragma once
 
@@ -15,9 +16,14 @@ class Game
 private:
 
 	sf::RenderWindow* renderWindow;
-	std::string gameState="Main menu";
-	MainMenu mainMenu;
 	sf::Event ev;
+
+	std::string gameState = "Main menu";
+
+	Gameplay gameplay;
+	MainMenu mainMenu;
+	Help help;
+
 
 
 public:

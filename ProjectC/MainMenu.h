@@ -18,11 +18,13 @@ private:
 	sf::Text graj;
 	sf::Text pomoc;
 	sf::Text wyjscie;
+
 	sf::Sprite logo;
 
-	sf::Texture logoT;
-	sf::Font lato;
 	sf::Texture starT;
+	sf::Texture logoT;
+
+	sf::Font lato;
 
 	std::vector<BouncingStar> stars;
 
