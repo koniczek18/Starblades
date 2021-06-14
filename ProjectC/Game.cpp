@@ -28,10 +28,23 @@ void Game::updateEvents()
 {
 	while (this->renderWindow->pollEvent(this->ev))
 	{
-		switch (this->ev.type)
+		if (ev.type == sf::Event::Closed)
 		{
-		case sf::Event::Closed:
 			this->renderWindow->close();
+		}
+		if (ev.type == sf::Event::MouseButtonPressed)
+		{
+			if (ev.mouseButton.button == sf::Mouse::Left)
+			{
+				sf::Vector2f mouse_position = renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*renderWindow));
+				if (gameState == "Main menu")
+				{
+
+					mainMenu.click(mouse_position,this);
+
+				}
+			}
+
 		}
 	}
 }
@@ -50,5 +63,15 @@ void Game::render()
 	//
 	this->renderWindow->display();
 	//
+}
+
+void Game::end()
+{
+	this->renderWindow->close();
+}
+
+void Game::changeScene(std::string scene)
+{
+	this->gameState = scene;
 }
 

@@ -5,10 +5,13 @@
 
 #include <vector>
 
-
 #include "BouncingStar.h"
 
 #pragma once
+
+class Game;
+
+
 class MainMenu
 {
 private:
@@ -29,5 +32,7 @@ public:
 
 	void render(sf::RenderWindow& window);
 	void update(sf::Time& elapsed);
+	void click(sf::Vector2f& pos,Game *game);
+
 };
 

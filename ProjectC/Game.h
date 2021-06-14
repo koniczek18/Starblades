@@ -4,8 +4,11 @@
 #include <SFML/Window.hpp>
 
 #include "MainMenu.h"
+#include "Gameplay.h"
 
 #pragma once
+
+class MainMenu;
 
 class Game
 {
@@ -28,5 +31,7 @@ public:
 	void update(sf::Time& elapsed);
 	void updateEvents();
 	void render();
+	void end();
+	void changeScene(std::string scene);
 };
 

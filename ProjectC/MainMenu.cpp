@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "Game.h"
 
 MainMenu::MainMenu()
 {
@@ -61,3 +62,18 @@ void MainMenu::update(sf::Time& elapsed)
 		st.animate(elapsed);
 	}
 }
+
+void MainMenu::click(sf::Vector2f& pos,Game *game)
+{
+	if (wyjscie.getGlobalBounds().contains(pos))
+	{
+		game->end();
+	}
+	else if (pomoc.getGlobalBounds().contains(pos))
+	{
+		game->changeScene("Help");
+	}
+
+}
+
+
