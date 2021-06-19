@@ -4,7 +4,7 @@
 Help::Help()
 {
 	//Loading
-	lato.loadFromFile("Lato-Black.ttf");
+	lato.loadFromFile("assets/font/Lato-Black.ttf");
 
 	powrot.setFont(lato);
 	powrot.setString("Powrót");

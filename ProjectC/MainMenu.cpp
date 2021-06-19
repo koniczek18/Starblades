@@ -4,9 +4,9 @@
 MainMenu::MainMenu()
 {
 	//Loading
-	lato.loadFromFile("Lato-Black.ttf");
-	starT.loadFromFile("star.png");
-	logoT.loadFromFile("logo.png");
+	lato.loadFromFile("assets/font/Lato-Black.ttf");
+	starT.loadFromFile("assets/textures/star.png");
+	logoT.loadFromFile("assets/textures/logo.png");
 
 	graj.setCharacterSize(30U);
 	graj.setString("Graj");
