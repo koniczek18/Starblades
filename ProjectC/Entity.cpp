@@ -164,6 +164,18 @@ float Entity::getX()
 	return currentStats.multiX;
 }
 
+float Entity::getPercentageVaule(bool wantHealth)
+{
+	if (wantHealth == true)
+	{
+		return currentStats.health / maxStats.health;
+	}
+	else
+	{
+		return currentStats.shields / maxStats.shields;
+	}
+}
+
 bool Entity::compareHealth(float _health, bool more) //more than given value
 {
 	if (more == true)
@@ -242,6 +254,25 @@ bool Entity::compareX(float _X, bool more)
 	}
 }
 
+void Entity::setClass(std::string klasa)
+{
+	if (klasa == "Odyssey")
+	{
+		setBaseStats(100.0f, 100.0f, 1.0f);
+		setMaxStats(100.0f, 100.0f, 1.0f);
+	}
+	else if (klasa == "Curiosity")
+	{
+		setBaseStats(50.0f, 150.0f, 1.2f);
+		setMaxStats(50.0f, 150.0f, 1.2f);
+	}
+	else if (klasa == "Rouge")
+	{
+		setBaseStats(75.0f, 100.0f, 1.5f);
+		setMaxStats(75.0f, 100.0f, 1.5f);
+	}
+}
+
 bool Entity::areShieldsUp()
 {
 	if (currentStats.shields != 0)
@@ -253,4 +284,5 @@ bool Entity::areShieldsUp()
 		return false;
 	}
 }
+
 

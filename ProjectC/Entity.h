@@ -52,12 +52,15 @@ public:
 	float getShields();
 	int getPower();
 	float getX();
+	float getPercentageVaule(bool wantHealth);
 
 	bool returnAlive();
 	bool areShieldsUp();
 	bool compareHealth(float _health, bool more);
 	bool compareShields(float _shields, bool more);
 	bool compareX(float _X, bool more);
+
+	void setClass(std::string klasa);
 
 };
 

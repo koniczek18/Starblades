@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include <iostream>
+
 #include "Entity.h"
 
 #pragma once
@@ -25,9 +27,14 @@ private:
 	sf::Texture statusBar;
 	sf::Texture cardSlotTX;
 
+	sf::Font font;
+
 	bool playerTurn = true;
 	Entity player;
 	Entity enemy;
+
+	std::string currentGameplay = "Class selection";
+	std::vector<sf::Text> classSelection;
 
 public:
 	Gameplay();
