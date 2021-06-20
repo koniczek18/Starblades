@@ -93,7 +93,9 @@ void Gameplay::update(sf::Time& elapsed)
 {
 	playerEnergy.setString(std::to_string(player.getPower()));
 	enemyEnergy.setString(std::to_string(enemy.getPower()));
-	playerHealthBar.setPosition(-343 + (player.getPercentageVaule(true) * 343), 4);
+	float newX = (-343 + (player.getPercentageVaule(true) * 343));
+	std::cout << newX << std::endl;
+	playerHealthBar.setPosition(newX, 4);
 }
 
 void Gameplay::click(sf::Vector2f& pos, Game* game)
@@ -108,7 +110,7 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				{
 					player.setClass("Odyssey");
 					currentGameplay=("Game");
-					for (int i = 0; i < 3; i++)
+					for (int i = 0; i <= 3; i++)
 					{
 						Card card;
 						card.setTextureFromFile("assets/textures/card.png");
