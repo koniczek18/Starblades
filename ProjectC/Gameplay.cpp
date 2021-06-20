@@ -45,6 +45,15 @@ Gameplay::Gameplay()
 	}
 	classSelection.emplace_back(wybor);
 
+	playerEnergy.setFont(font);
+	playerEnergy.setPosition(5, 95);
+	playerEnergy.setCharacterSize(30);
+	playerEnergy.setFillColor(sf::Color::Black);
+	enemyEnergy.setFont(font);
+	enemyEnergy.setPosition(1250, 95);
+	enemyEnergy.setCharacterSize(30);
+	enemyEnergy.setFillColor(sf::Color::Red);
+
 }
 
 Gameplay::~Gameplay()
@@ -69,6 +78,12 @@ void Gameplay::render(sf::RenderWindow& window)
 		window.draw(enemyStatusBar);
 		window.draw(enemyHealthBar);
 		window.draw(enemyShieldBar);
+		window.draw(playerEnergy);
+		window.draw(enemyEnergy);
+		for (auto& w : inGameCards)
+		{
+			window.draw(w);
+		}
 		//window.draw(cardSlot); to narazie nie
 	}
 
@@ -76,7 +91,9 @@ void Gameplay::render(sf::RenderWindow& window)
 
 void Gameplay::update(sf::Time& elapsed)
 {
-
+	playerEnergy.setString(std::to_string(player.getPower()));
+	enemyEnergy.setString(std::to_string(enemy.getPower()));
+	playerHealthBar.setPosition(-343 + (player.getPercentageVaule(true) * 343), 4);
 }
 
 void Gameplay::click(sf::Vector2f& pos, Game* game)
@@ -91,6 +108,22 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				{
 					player.setClass("Odyssey");
 					currentGameplay=("Game");
+					for (int i = 0; i < 3; i++)
+					{
+						Card card;
+						card.setTextureFromFile("assets/textures/card.png");
+						inGameCards.emplace_back(card);
+					}
+					for (int i=0;i< inGameCards.size();i++)
+					{
+						inGameCards[i].setPositionTo(i);
+						for (int j = 0; j < 14; j++)
+						{
+							inGameCards[i].setData(j, 10);
+							inGameCards[i].setTextureFromFile("assets/textures/card.png");
+						}
+					}
+					
 				}
 				else if (i == 1)
 				{
@@ -106,6 +139,16 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				{
 					std::cout << "Po co to klikasz?" << std::endl << "Chesz to zepsuc???" << std::endl;
 				}
+			}
+		}
+	}
+	if (currentGameplay == "Game")
+	{
+		for (int i = 0; i < inGameCards.size(); i++)
+		{
+			if (inGameCards[i].getGlobalBounds().contains(pos))
+			{
+				inGameCards[i].play(player,enemy);
 			}
 		}
 	}

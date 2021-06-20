@@ -260,16 +260,19 @@ void Entity::setClass(std::string klasa)
 	{
 		setBaseStats(100.0f, 100.0f, 1.0f);
 		setMaxStats(100.0f, 100.0f, 1.0f);
+		resetCurrentStats();
 	}
 	else if (klasa == "Curiosity")
 	{
 		setBaseStats(50.0f, 150.0f, 1.2f);
 		setMaxStats(50.0f, 150.0f, 1.2f);
+		resetCurrentStats();
 	}
 	else if (klasa == "Rouge")
 	{
 		setBaseStats(75.0f, 100.0f, 1.5f);
 		setMaxStats(75.0f, 100.0f, 1.5f);
+		resetCurrentStats();
 	}
 }
 

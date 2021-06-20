@@ -4,8 +4,10 @@
 #include <SFML/Window.hpp>
 
 #include <iostream>
+#include <string>
 
 #include "Entity.h"
+#include "Card.h"
 
 #pragma once
 
@@ -21,6 +23,8 @@ private:
 	sf::Sprite playerStatusBar;
 	sf::Sprite enemyStatusBar;
 	sf::Sprite cardSlot;
+	sf::Text playerEnergy;
+	sf::Text enemyEnergy;
 
 	sf::Texture healthBar;
 	sf::Texture shieldBar;
@@ -35,6 +39,9 @@ private:
 
 	std::string currentGameplay = "Class selection";
 	std::vector<sf::Text> classSelection;
+
+	std::vector<Card> playerDeck;
+	std::vector<Card> inGameCards;
 
 public:
 	Gameplay();
