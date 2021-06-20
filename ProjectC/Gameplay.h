@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "Entity.h"
+
 #pragma once
 
 class Game;
@@ -23,6 +25,10 @@ private:
 	sf::Texture statusBar;
 	sf::Texture cardSlotTX;
 
+	bool playerTurn = true;
+	Entity player;
+	Entity enemy;
+
 public:
 	Gameplay();
 	~Gameplay();
@@ -31,5 +37,6 @@ public:
 	void click(sf::Vector2f& pos, Game* game);
 
 	void setBasePositions();
+	void gameplayInit();
 };
 

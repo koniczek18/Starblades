@@ -37,7 +37,8 @@ void Gameplay::render(sf::RenderWindow& window)
 	window.draw(enemyStatusBar);
 	window.draw(enemyHealthBar);
 	window.draw(enemyShieldBar);
-	window.draw(cardSlot);
+	//window.draw(cardSlot); to narazie nie
+
 }
 
 void Gameplay::update(sf::Time& elapsed)
@@ -46,6 +47,7 @@ void Gameplay::update(sf::Time& elapsed)
 
 void Gameplay::click(sf::Vector2f& pos, Game* game)
 {
+	
 }
 
 void Gameplay::setBasePositions()
@@ -57,4 +59,9 @@ void Gameplay::setBasePositions()
 	enemyStatusBar.setPosition(1280, 0);
 	enemyHealthBar.setPosition(1280, 4);
 	enemyShieldBar.setPosition(1280, 47);
+}
+
+void Gameplay::gameplayInit()
+{
+	
 }

@@ -44,10 +44,6 @@ public:
 	void addPower(int _power);
 	void reducePower(int _power);
 
-	void setHealth(float _health);
-	void setShields(float _shields);
-	void setPower(int _power);
-
 	void addX(float _X);
 	void reduceX(float _X);
 	void setX(float _X);
@@ -57,7 +53,7 @@ public:
 	int getPower();
 	float getX();
 
-	bool isAlive();
+	bool returnAlive();
 	bool areShieldsUp();
 	bool compareHealth(float _health, bool more);
 	bool compareShields(float _shields, bool more);
