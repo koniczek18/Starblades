@@ -21,7 +21,6 @@ Gameplay::Gameplay()
 	enemyStatusBar.setScale(-1.f, 1.f);
 
 	setBasePositions();
-
 	cardSlot.setPosition(0, 427);
 }
 

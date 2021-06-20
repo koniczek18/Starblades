@@ -20,13 +20,15 @@ private:
 	stats currentStats;
 	int power;
 
+	bool isAlive = true;
+
 public:
 	Entity();
 	Entity(std::string type);
 	~Entity();
 
 	void setBaseStats(float _health, float _shields, float _X);
-	void setMaxStats(float _health, float _shields, float _X);
+	void setMaxStats(float _health, float _shield, float _X);
 	void resetCurrentStats();
 
 	void receiveDamage(float _dmg);
@@ -36,6 +38,8 @@ public:
 	void restoreHealthAndShields(float _health);
 	void restoreHealth(float _health);
 	void restoreShields(float _shields);
+
+	void updateAndCheck();
 
 	void addPower(int _power);
 	void reducePower(int _power);
