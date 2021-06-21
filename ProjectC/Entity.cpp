@@ -13,14 +13,14 @@ Entity::~Entity()
 {
 }
 
-void Entity::setBaseStats(float _health, float _shield, float _X)
+void Entity::setBaseStats(int _health, int _shield, float _X)
 {
 	baseStats.health = _health;
 	baseStats.shields = _shield;
 	baseStats.multiX = _X;
 }
 
-void Entity::setMaxStats(float _health, float _shield, float _X)
+void Entity::setMaxStats(int _health, int _shield, float _X)
 {
 	maxStats.health = _health;
 	maxStats.shields = _shield;
@@ -34,7 +34,7 @@ void Entity::resetCurrentStats()
 	currentStats.multiX = maxStats.multiX;
 }
 
-void Entity::receiveDamage(float dmg)
+void Entity::receiveDamage(int dmg)
 {
 	if (currentStats.shields == 0)
 	{
@@ -48,26 +48,26 @@ void Entity::receiveDamage(float dmg)
 		}
 		else
 		{
-			float toHealth = dmg - currentStats.shields;
+			int toHealth = dmg - currentStats.shields;
 			receiveDamageS(currentStats.shields);
 			receiveDamageH(toHealth);
 		}
 	}
 }
 
-void Entity::receiveDamageH(float dmgH)
+void Entity::receiveDamageH(int dmgH)
 {
 	currentStats.health -= dmgH;
 	updateAndCheck();
 }
 
-void Entity::receiveDamageS(float dmgS)
+void Entity::receiveDamageS(int dmgS)
 {
 	currentStats.shields -= dmgS;
 	updateAndCheck();
 }
 
-void Entity::restoreHealthAndShields(float health)
+void Entity::restoreHealthAndShields(int health)
 {
 	if (currentStats.health == maxStats.health)
 	{
@@ -83,13 +83,13 @@ void Entity::restoreHealthAndShields(float health)
 	}
 }
 
-void Entity::restoreHealth(float health)
+void Entity::restoreHealth(int health)
 {
 	currentStats.health += health;
 	updateAndCheck();
 }
 
-void Entity::restoreShields(float shields)
+void Entity::restoreShields(int shields)
 {
 	currentStats.shields += shields;
 	updateAndCheck();
@@ -144,12 +144,12 @@ void Entity::setX(float _X)
 	currentStats.multiX = _X;
 }
 
-float Entity::getHealth()
+int Entity::getHealth()
 {
 	return currentStats.health;
 }
 
-float Entity::getShields()
+int Entity::getShields()
 {
 	return currentStats.shields;
 }
@@ -164,8 +164,12 @@ float Entity::getX()
 	return currentStats.multiX;
 }
 
-float Entity::getPercentageVaule(bool wantHealth)
+int Entity::getPercentageVaule(bool wantHealth)
 {
+	if (maxStats.health == 0)
+	{
+		return 0;
+	}
 	if (wantHealth == true)
 	{
 		return currentStats.health / maxStats.health;
@@ -176,7 +180,7 @@ float Entity::getPercentageVaule(bool wantHealth)
 	}
 }
 
-bool Entity::compareHealth(float _health, bool more) //more than given value
+bool Entity::compareHealth(int _health, bool more) //more than given value
 {
 	if (more == true)
 	{
@@ -202,7 +206,7 @@ bool Entity::compareHealth(float _health, bool more) //more than given value
 	}
 }
 
-bool Entity::compareShields(float _shields, bool more)
+bool Entity::compareShields(int _shields, bool more)
 {
 	if (more == true)
 	{

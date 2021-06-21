@@ -3,6 +3,7 @@
 
 Gameplay::Gameplay()
 {
+
 	healthBar.loadFromFile("assets/textures/healthbar.png");
 	shieldBar.loadFromFile("assets/textures/shieldbar.png");
 	statusBar.loadFromFile("assets/textures/statusbar.png");
@@ -53,6 +54,8 @@ Gameplay::Gameplay()
 	enemyEnergy.setPosition(1250, 95);
 	enemyEnergy.setCharacterSize(30);
 	enemyEnergy.setFillColor(sf::Color::Red);
+
+	initCardbase();
 
 }
 
@@ -110,22 +113,17 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				{
 					player.setClass("Odyssey");
 					currentGameplay=("Game");
-					for (int i = 0; i <= 3; i++)
+					for (int i = 0; i < database.size(); i++)
 					{
-						Card card;
-						card.setTextureFromFile("assets/textures/card.png");
-						inGameCards.emplace_back(card);
-					}
-					for (int i=0;i< inGameCards.size();i++)
-					{
-						inGameCards[i].setPositionTo(i);
-						for (int j = 0; j < 14; j++)
+						if (database[i].getRarity() == 1)
 						{
-							inGameCards[i].setData(j, 10);
-							inGameCards[i].setTextureFromFile("assets/textures/card.png");
+							Card card;
+							card = database[i];
+							playerDeck.emplace_back(card);
 						}
 					}
-					
+					randomisePlayerDeck();
+					drawCards();
 				}
 				else if (i == 1)
 				{
@@ -167,7 +165,66 @@ void Gameplay::setBasePositions()
 	enemyShieldBar.setPosition(1280, 47);
 }
 
-void Gameplay::gameplayInit()
+void Gameplay::drawCards()
+{
+	while (inGameCards.size() < 3)
+	{
+		if (playerDeck.size() != 0)
+		{
+			inGameCards.emplace_back(playerDeck[playerDeck.size() - 1]);
+			inGameCards[inGameCards.size() - 1].changePosition(inGameCards.size());
+			playerDeck.pop_back();
+		}
+		else
+		{
+			playerDeck = discardPile;
+			discardPile.clear();
+		}
+	}
+}
+
+void Gameplay::randomisePlayerDeck()
 {
 	
+}
+
+void Gameplay::initCardbase()
+{
+	std::fstream file("assets/gameplay.csv", std::fstream::in);
+	if (file.is_open())
+	{
+		std::string line;
+		std::getline(file, line);
+		while (std::getline(file, line))
+		{
+			std::stringstream str(line);
+			Card card;
+			std::string a;
+			std::getline(str, a, ',');
+			card.setID(std::stoi(a));
+			std::getline(str, a, ',');
+			card.setName(a);
+			for (int i = 0; i < 14; i++)
+			{
+				std::getline(str, a, ',');
+				card.setData(i, std::stoi(a));
+			}
+			std::getline(str, a, ',');
+			if (a != "null")
+			{
+				std::string temp = a;
+				std::getline(str, a, ',');
+				card.setEffect(temp, std::stoi(a));
+			}
+			else
+			{
+				std::getline(str, a, ',');
+			}
+			std::getline(str, a, ',');
+			card.setRarity(std::stoi(a));
+			std::getline(str, a, ',');
+			card.setTextureFromFile(a);
+			database.emplace_back(card);
+		}
+	}
 }

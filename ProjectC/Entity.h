@@ -7,8 +7,8 @@
 
 struct stats
 {
-	float health;
-	float shields;
+	int health;
+	int shields;
 	float multiX;
 };
 
@@ -27,17 +27,17 @@ public:
 	Entity(std::string type);
 	~Entity();
 
-	void setBaseStats(float _health, float _shields, float _X);
-	void setMaxStats(float _health, float _shield, float _X);
+	void setBaseStats(int _health, int _shields, float _X);
+	void setMaxStats(int _health, int _shield, float _X);
 	void resetCurrentStats();
 
-	void receiveDamage(float _dmg);
-	void receiveDamageH(float _dmgH);
-	void receiveDamageS(float _dmgS);
+	void receiveDamage(int _dmg);
+	void receiveDamageH(int _dmgH);
+	void receiveDamageS(int _dmgS);
 
-	void restoreHealthAndShields(float _health);
-	void restoreHealth(float _health);
-	void restoreShields(float _shields);
+	void restoreHealthAndShields(int _health);
+	void restoreHealth(int _health);
+	void restoreShields(int _shields);
 
 	void updateAndCheck();
 
@@ -48,16 +48,16 @@ public:
 	void reduceX(float _X);
 	void setX(float _X);
 
-	float getHealth();
-	float getShields();
+	int getHealth();
+	int getShields();
 	int getPower();
 	float getX();
-	float getPercentageVaule(bool wantHealth);
+	int getPercentageVaule(bool wantHealth);
 
 	bool returnAlive();
 	bool areShieldsUp();
-	bool compareHealth(float _health, bool more);
-	bool compareShields(float _shields, bool more);
+	bool compareHealth(int _health, bool more);
+	bool compareShields(int _shields, bool more);
 	bool compareX(float _X, bool more);
 
 	void setClass(std::string klasa);

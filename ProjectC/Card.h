@@ -13,8 +13,8 @@ class Card:public sf::Sprite
 {
 private:
 	int ID;
-
-	float data[14];
+	std::string name;
+	int data[14];
 	/*
 	[0] dmgToTarget;
 	[1] dmgToSelf;
@@ -34,21 +34,38 @@ private:
 	*/
 
 	sf::Texture tekstura;
-	std::string status = "n/a"; // n/a, inHand, inDeck //
+	std::pair<std::string, int> bonus;
+	int rarity = 1;
+	int position = 0;
 
 public:
 	Card();
 	~Card();
 
 	void loadDataFromFile(std::string _path);
-	void setData(std::vector<float> _data);
-	void setData(int _id, float value);
-	void setData(float _data[12]);
+	void setData(std::vector<int> _data);
+	void setData(int _id, int value);
+	void setData(int _data[12]);
+	void setID(int _id);
+	void setName(std::string);
+	void setEffect(std::string a,int b);
+	void setRarity(int a);
 
 	void setTextureFromFile(std::string _path);
 
 	void play(Entity &owner, Entity &target);
 	void setPositionTo(int pos);
+
+	int getID();
+	std::string getName();
+	int getData(int a);
+	sf::Texture returnTexture();
+	std::pair<std::string, int> getBouns();
+	int getRarity();
+
+	void operator=(Card& kard);
+
+	void changePosition(int i);
 
 };
 

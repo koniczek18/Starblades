@@ -5,6 +5,9 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <fstream>
+#include <algorithm>
 
 #include "Entity.h"
 #include "Card.h"
@@ -40,8 +43,10 @@ private:
 	std::string currentGameplay = "Class selection";
 	std::vector<sf::Text> classSelection;
 
+	std::vector<Card> database;
 	std::vector<Card> playerDeck;
 	std::vector<Card> inGameCards;
+	std::vector<Card> discardPile;
 
 public:
 	Gameplay();
@@ -51,6 +56,8 @@ public:
 	void click(sf::Vector2f& pos, Game* game);
 
 	void setBasePositions();
-	void gameplayInit();
+	void drawCards();
+	void randomisePlayerDeck();
+	void initCardbase();
 };
 
