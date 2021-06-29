@@ -12,6 +12,7 @@ Card::Card()
 
 Card::~Card()
 {
+
 }
 
 void Card::loadDataFromFile(std::string _path)
@@ -55,20 +56,17 @@ void Card::setName(std::string _name)
 	name = _name;
 }
 
-void Card::setEffect(std::string a,int b)
-{
-	bonus = std::make_pair(a, b);
-}
 
-void Card::setRarity(int a)
+void Card::settier(int a)
 {
-	rarity = a;
+	tier = a;
 }
 
 void Card::setTextureFromFile(std::string _path)
 {
-	tekstura.loadFromFile(_path);
-	this->setTexture(tekstura);
+	path = _path;
+	tekstura.loadFromFile("1.png");
+	resetTexture();
 }
 
 void Card::play(Entity &owner, Entity &target)
@@ -107,15 +105,15 @@ void Card::setPositionTo(int pos)
 {
 	if (pos == 1)
 	{
-		this->setPosition(400, 400);
+		this->setPosition(400.0f, 400.0f);
 	}
 	else if (pos == 2)
 	{
-		this->setPosition(700, 400);
+		this->setPosition(700.0f, 400.0f);
 	}
 	else if (pos == 3)
 	{
-		this->setPosition(900, 400);
+		this->setPosition(900.0f, 400.0f);
 	}
 }
 
@@ -139,14 +137,14 @@ sf::Texture Card::returnTexture()
 	return tekstura;
 }
 
-std::pair<std::string, int> Card::getBouns()
+int Card::gettier()
 {
-	return bonus;
+	return tier;
 }
 
-int Card::getRarity()
+std::string Card::returnPath()
 {
-	return rarity;
+	return path;
 }
 
 void Card::operator=(Card& kard)
@@ -157,13 +155,14 @@ void Card::operator=(Card& kard)
 	{
 		this->data[i] = getData(i);
 	}
-	this->tekstura = kard.returnTexture();
-	this->bonus = kard.getBouns();
-	this->rarity = kard.getRarity();
+	this->tier = kard.gettier();
+	this->path = kard.returnPath();
+	this->resetTexture();
 }
 
 void Card::changePosition(int i)
 {
+	position = i;
 	if (position == 0)
 	{
 		this->setPosition(-100, -100);
@@ -179,5 +178,19 @@ void Card::changePosition(int i)
 	else if (position == 3)
 	{
 		this->setPosition(700, 300);
+	}
+}
+
+void Card::resetTexture()
+{
+	if (path == "null")
+	{
+		tekstura.loadFromFile("assets/cards/2.png");
+		setTexture(tekstura);
+	}
+	else
+	{
+		tekstura.loadFromFile(path);
+		setTexture(tekstura);
 	}
 }

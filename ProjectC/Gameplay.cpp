@@ -55,8 +55,6 @@ Gameplay::Gameplay()
 	enemyEnergy.setCharacterSize(30);
 	enemyEnergy.setFillColor(sf::Color::Red);
 
-	initCardbase();
-
 }
 
 Gameplay::~Gameplay()
@@ -83,9 +81,10 @@ void Gameplay::render(sf::RenderWindow& window)
 		window.draw(enemyShieldBar);
 		window.draw(playerEnergy);
 		window.draw(enemyEnergy);
-		for (auto& w : inGameCards)
+		for (int i = 0; i < inGameCards.size(); i++)
 		{
-			window.draw(w);
+			//inGameCards[i].resetTexture();
+			window.draw(inGameCards[i]);
 		}
 		//window.draw(cardSlot); to narazie nie
 	}
@@ -115,11 +114,9 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					currentGameplay=("Game");
 					for (int i = 0; i < database.size(); i++)
 					{
-						if (database[i].getRarity() == 1)
+						if (database[i].gettier() == -1)
 						{
-							Card card;
-							card = database[i];
-							playerDeck.emplace_back(card);
+							playerDeck.emplace_back(database[i]);
 						}
 					}
 					randomisePlayerDeck();
@@ -129,11 +126,29 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				{
 					player.setClass("Curiosity");
 					currentGameplay = ("Game");
+					for (int i = 0; i < database.size(); i++)
+					{
+						if (database[i].gettier() == -2)
+						{
+							
+						}
+					}
+					randomisePlayerDeck();
+					drawCards();
 				}
 				else if (i == 2)
 				{
 					player.setClass("Rouge");
 					currentGameplay = ("Game");
+					for (int i = 0; i < database.size(); i++)
+					{
+						if (database[i].gettier() == -3)
+						{
+							
+						}
+					}
+					randomisePlayerDeck();
+					drawCards();
 				}
 				else if (i == 3)
 				{
@@ -169,23 +184,26 @@ void Gameplay::drawCards()
 {
 	while (inGameCards.size() < 3)
 	{
-		if (playerDeck.size() != 0)
+		if (playerDeck.size() > 0)
 		{
 			inGameCards.emplace_back(playerDeck[playerDeck.size() - 1]);
-			inGameCards[inGameCards.size() - 1].changePosition(inGameCards.size());
 			playerDeck.pop_back();
+			inGameCards[inGameCards.size() - 1].setPositionTo(inGameCards.size());
 		}
 		else
 		{
-			playerDeck = discardPile;
-			discardPile.clear();
+			
 		}
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		inGameCards[i].resetTexture();
 	}
 }
 
 void Gameplay::randomisePlayerDeck()
 {
-	
+
 }
 
 void Gameplay::initCardbase()
@@ -210,21 +228,10 @@ void Gameplay::initCardbase()
 				card.setData(i, std::stoi(a));
 			}
 			std::getline(str, a, ',');
-			if (a != "null")
-			{
-				std::string temp = a;
-				std::getline(str, a, ',');
-				card.setEffect(temp, std::stoi(a));
-			}
-			else
-			{
-				std::getline(str, a, ',');
-			}
-			std::getline(str, a, ',');
-			card.setRarity(std::stoi(a));
+			card.settier(std::stoi(a));
 			std::getline(str, a, ',');
 			card.setTextureFromFile(a);
-			database.emplace_back(card);
+			database.emplace_back(std::move(card));
 		}
 	}
 }

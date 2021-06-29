@@ -34,9 +34,9 @@ private:
 	*/
 
 	sf::Texture tekstura;
-	std::pair<std::string, int> bonus;
-	int rarity = 1;
+	int tier = 1;
 	int position = 0;
+	std::string path;
 
 public:
 	Card();
@@ -48,8 +48,7 @@ public:
 	void setData(int _data[12]);
 	void setID(int _id);
 	void setName(std::string);
-	void setEffect(std::string a,int b);
-	void setRarity(int a);
+	void settier(int a);
 
 	void setTextureFromFile(std::string _path);
 
@@ -60,10 +59,11 @@ public:
 	std::string getName();
 	int getData(int a);
 	sf::Texture returnTexture();
-	std::pair<std::string, int> getBouns();
-	int getRarity();
+	int gettier();
+	std::string returnPath();
 
 	void operator=(Card& kard);
+	void resetTexture();
 
 	void changePosition(int i);
 

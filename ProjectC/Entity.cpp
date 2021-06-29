@@ -30,7 +30,7 @@ void Entity::setMaxStats(int _health, int _shield, float _X)
 void Entity::resetCurrentStats()
 {
 	currentStats.health = maxStats.health;
-	currentStats.health = maxStats.shields;
+	currentStats.shields = maxStats.shields;
 	currentStats.multiX = maxStats.multiX;
 }
 

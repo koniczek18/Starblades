@@ -3,6 +3,8 @@
 Game::Game()
 {
 	this->renderWindow = new sf::RenderWindow(sf::VideoMode(1280, 720), "Starblades", sf::Style::Titlebar | sf::Style::Close);
+	renderWindow->setFramerateLimit(60);
+	this->init();
 }
 
 Game::~Game()
@@ -97,3 +99,7 @@ void Game::changeScene(std::string scene)
 	this->gameState = scene;
 }
 
+void Game::init()
+{
+	gameplay.initCardbase();
+}

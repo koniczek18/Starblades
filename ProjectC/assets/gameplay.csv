@@ -1,6 +1,6 @@
-ID,name,dmgToTarget,dmgToSelf,sDmgToTarget,sDmgToSelf,hDmgToTarget,hDmgToSelf,healTarget,healSelf,restoreShieldsTarget,restoreShieldsSelf,restoreHealthTarget,restoreHealthSelf,modifyTargetEnergy,modifySelfEnergy,bonus effect,effect str,set/rarity,path
-1,Missle,5,0,0,0,0,0,0,0,0,0,0,0,0,3,null,0,1,null
-2,Laser,3,0,10,0,0,0,0,0,0,0,0,0,-2,1,null,0,1,null
-3,Repairs,0,0,0,0,0,0,0,0,0,10,10,0,0,5,null,0,1,null
-4,Heal crew,0,0,0,0,0,0,0,0,0,0,0,15,0,5,null,0,1,null
-5,BOOM,20,10,0,0,0,0,0,0,0,0,0,0,0,-5,null,0,2,null
+ID,name,dmgToTarget,dmgToSelf,sDmgToTarget,sDmgToSelf,hDmgToTarget,hDmgToSelf,healTarget,healSelf,restoreShieldsTarget,restoreShieldsSelf,restoreHealthTarget,restoreHealthSelf,modifyTargetEnergy,modifySelfEnergy,tier,path
+1,Missle,5,0,0,0,0,0,0,0,0,0,0,0,0,3,-1,null
+2,Laser,3,0,10,0,0,0,0,0,0,0,0,0,-2,1,-1,null
+3,Repairs,0,0,0,0,0,0,0,0,0,10,10,0,0,5,-1,null
+4,Heal crew,0,0,0,0,0,0,0,0,0,0,0,15,0,5,-1,null
+5,BOOM,20,10,0,0,0,0,0,0,0,0,0,0,0,-5,-1,null

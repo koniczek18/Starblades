@@ -39,5 +39,7 @@ public:
 	void render();
 	void end();
 	void changeScene(std::string scene);
+
+	void init();
 };
 
