@@ -1,12 +1,14 @@
 #pragma once
 #include "Entity.h"
+#include <iostream>
 class HostileEntity :public Entity
 {
 private:
 	int ID;
 	std::string name;
 	int tier;
-	std::vector<std::pair<std::string, int>> ability; // 0, 1, 2, 3, 4
+	int ability[5] = { 0,0,0,0,0 }; //0-Dmg, 1-Heal HP, 2-Restore Shields, 3-Decrease enemy power, 4 - Increase sefl X
+	std::pair<int, int> abilityDuo[3]; //5 - Increase self X and dmg, 6 - Increase self X and heal Overall, 7 - Heal Overall and dmg
 	Entity* player;
 	int lastPlayed = -1;
 public:
@@ -16,10 +18,14 @@ public:
 	void setID(int _ID);
 	void setName(std::string _name);
 	void setTier(int _tier);
-	void setAbility(std::string,int _no, int _ability);
+	void setAbility(int _no, int _value);
+	void setAbility(int _no, int _value1,int _value2);
 
 	void linkPlayer(Entity *_player);
 
 	void play();
+	void playEffect(int _code);
+
+
 };
 

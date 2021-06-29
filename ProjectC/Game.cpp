@@ -102,4 +102,5 @@ void Game::changeScene(std::string scene)
 void Game::init()
 {
 	gameplay.initCardbase();
+	gameplay.initHeDatabase();
 }

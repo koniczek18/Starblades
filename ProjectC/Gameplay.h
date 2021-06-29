@@ -46,6 +46,7 @@ private:
 	std::vector<sf::Text> classSelection;
 
 	std::vector<Card> database;
+	std::vector<HostileEntity> heDatabase;
 	std::vector<Card > playerDeck;
 	std::vector<Card> inGameCards;
 	std::vector<Card> discardPile;
@@ -62,5 +63,6 @@ public:
 	void drawCards();
 	void randomisePlayerDeck();
 	void initCardbase();
+	void initHeDatabase();
 };
 

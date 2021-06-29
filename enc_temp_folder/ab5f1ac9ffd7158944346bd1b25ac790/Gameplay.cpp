@@ -272,7 +272,6 @@ void Gameplay::initHeDatabase()
 			std::string b = a;
 			std::getline(str, a, ',');
 			enemy.setBaseStats(std::stoi(c), std::stoi(b), std::stoi(a));
-			heDatabase.emplace_back(enemy);
 		}
 	}
 }
