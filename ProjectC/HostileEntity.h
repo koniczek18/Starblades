@@ -26,6 +26,8 @@ public:
 	void play();
 	void playEffect(int _code);
 
+	int getTier();
+
 
 };
 

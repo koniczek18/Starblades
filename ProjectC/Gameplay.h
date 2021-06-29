@@ -64,5 +64,7 @@ public:
 	void randomisePlayerDeck();
 	void initCardbase();
 	void initHeDatabase();
+
+	void selectRandomEnemy(int tier);
 };
 

@@ -1,2 +1,4 @@
 ID,name,tier,0 - dmg,1 - heal,2 - restore shields,3 - decrease enemy power (value/100),4 - increase self x,5 - increase x (value/100),and dmg,6 - increase self x (value/100),and heal,7- heal overall ,and dmg,health,shields,X,texture_path,is_animated?,frame x,frame y,frame no.
 1,enemy,0,10,10,10,10,10,10,10,10,10,10,10,100,100,1.0,null,0,null,null,null
+1,enemy,0,10,10,10,10,10,10,10,10,10,10,10,100,100,1.1,null,0,null,null,null
+1,enemy,0,10,10,10,10,10,10,10,10,10,10,10,100,100,1.2,null,0,null,null,null

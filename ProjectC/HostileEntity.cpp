@@ -143,4 +143,9 @@ void HostileEntity::playEffect(int _code)
 
 }
 
+int HostileEntity::getTier()
+{
+	return tier;
+}
+
 

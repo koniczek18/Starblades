@@ -247,6 +247,7 @@ void Gameplay::initHeDatabase()
 		{
 			std::stringstream str(line);
 			HostileEntity enemy;
+			enemy.linkPlayer(&player);
 			std::string a;
 			std::getline(str, a, ',');
 			enemy.setID(std::stoi(a));
@@ -254,25 +255,48 @@ void Gameplay::initHeDatabase()
 			enemy.setName(a);
 			std::getline(str, a, ',');
 			enemy.setTier(std::stoi(a));
-			for (int i = 0; i < 5; i++)
+			/*for (int i = 0; i < 8; i++)
 			{
-				std::getline(str, a, ',');
-				enemy.setAbility(i, std::stoi(a));
-			}
-			for (int i = 0; i < 3; i++)
-			{
-				std::getline(str, a, ',');
-				std::string b = a;
-				std::getline(str, a, ',');
-				enemy.setAbility(i, std::stoi(b), std::stoi(a));
+				if (i < 6)
+				{
+					std::getline(str, a, ',');
+					enemy.setAbility(i, std::stoi(a));
+				}
+				else
+				{
+					std::getline(str, a, ',');
+					std::string b = a;
+					std::getline(str, a, ',');
+					enemy.setAbility(i, std::stoi(b), std::stoi(a));
+				}
 			}
 			std::getline(str, a, ',');
 			std::string c = a;
 			std::getline(str, a, ',');
 			std::string b = a;
 			std::getline(str, a, ',');
-			enemy.setBaseStats(std::stoi(c), std::stoi(b), std::stoi(a));
+			enemy.setBaseStats(std::stoi(c), std::stoi(b), std::stof(a));*/
 			heDatabase.emplace_back(enemy);
 		}
+	}
+}
+
+void Gameplay::selectRandomEnemy(int tier)
+{
+	std::vector<HostileEntity> h;
+	for (auto& he : heDatabase)
+	{
+		if (he.getTier() == tier)
+		{
+			h.emplace_back(he);
+		}
+	}
+	if (h.size() > 0)
+	{
+		enemy = h[rand() % h.size()];
+	}
+	else
+	{
+		currentGameplay = "Victory";
 	}
 }
