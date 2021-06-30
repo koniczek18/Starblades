@@ -65,17 +65,17 @@ void Card::settier(int a)
 void Card::setTextureFromFile(std::string _path)
 {
 	path = _path;
-	tekstura.loadFromFile("1.png");
+	tekstura.loadFromFile(path);
 	resetTexture();
 }
 
 void Card::play(Entity &owner, Entity &target)
 {
-	target.receiveDamage(data[0]);
+	target.receiveDamage(data[0]*owner.getX());
 	owner.receiveDamage(data[1]);
-	target.receiveDamageS(data[2]);
+	target.receiveDamageS(data[2] * owner.getX());
 	owner.receiveDamageS(data[3]);
-	target.receiveDamageH(data[4]);
+	target.receiveDamageH(data[4] * owner.getX());
 	owner.receiveDamageH(data[5]);
 	target.restoreHealthAndShields(data[6]);
 	owner.restoreHealthAndShields(data[7]);
@@ -165,19 +165,19 @@ void Card::changePosition(int i)
 	position = i;
 	if (position == 0)
 	{
-		this->setPosition(-100, -100);
+		this->setPosition(-200, -200);
 	}
 	else if(position == 1)
 	{
-		this->setPosition(300, 300);
+		this->setPosition(440 - (0.5 * this->getGlobalBounds().width), 400);
 	}
 	else if (position == 2)
 	{
-		this->setPosition(500, 300);
+		this->setPosition(640-(0.5*this->getGlobalBounds().width), 400);
 	}
 	else if (position == 3)
 	{
-		this->setPosition(700, 300);
+		this->setPosition(840 - (0.5 * this->getGlobalBounds().width), 400);
 	}
 }
 

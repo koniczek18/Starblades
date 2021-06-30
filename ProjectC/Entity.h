@@ -12,15 +12,22 @@ struct stats
 	float multiX;
 };
 
-class Entity
+class Entity:public sf::Sprite
 {
 private:
 	stats baseStats;
 	stats maxStats;
 	stats currentStats;
 	int power;
-
 	bool isAlive = true;
+
+	sf::Texture tekstura;
+	std::vector<sf::IntRect> frames;
+	bool isAnimated = false;
+	int widthOfAnimation = 0;
+	int numberOfFrames = 0;
+	std::string path = "1.png";
+	int index = 0;
 
 public:
 	Entity();
@@ -44,8 +51,8 @@ public:
 	void addPower(int _power);
 	void reducePower(int _power);
 
-	void addX(float _X);
-	void reduceX(float _X);
+	void addX(int _X);
+	void reduceX(int _X);
 	void setX(int _X);
 
 	int getHealth();
@@ -61,6 +68,10 @@ public:
 	bool compareX(float _X, bool more);
 
 	void setClass(std::string klasa);
+
+	void FromFile(std::string _path,bool _isAnimated,int width,int no);
+	void createFrames();
+	void Animate();
 
 };
 

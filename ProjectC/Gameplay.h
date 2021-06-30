@@ -37,10 +37,9 @@ private:
 
 	sf::Font font;
 
-	bool playerTurn = true;
 	Entity player;
 	HostileEntity enemy;
-	sf::Text enemyAction;
+	sf::Text ActionText;
 
 	std::string currentGameplay = "Class selection";
 	std::vector<sf::Text> classSelection;
@@ -52,6 +51,7 @@ private:
 	std::vector<Card> discardPile;
 
 	int level;
+	sf::Time elapser;
 
 public:
 
@@ -66,6 +66,7 @@ public:
 	void randomisePlayerDeck();
 	void initCardbase();
 	void initHeDatabase();
+	void resetInGameCards();
 
 	void selectRandomEnemy(int tier);
 };

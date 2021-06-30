@@ -7,6 +7,7 @@
 
 int main()
 {
+	srand(time(NULL));
 	Game game;
 	sf::Time elapsed;
 	sf::Clock clock;

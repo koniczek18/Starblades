@@ -51,6 +51,11 @@ Gameplay::Gameplay()
 	playerEnergy.setCharacterSize(30);
 	playerEnergy.setFillColor(sf::Color::Black);
 
+	ActionText.setFont(font);
+	ActionText.setCharacterSize(30);
+	ActionText.setString("default");
+
+	player.setPosition(100, 300);
 
 }
 
@@ -68,7 +73,7 @@ void Gameplay::render(sf::RenderWindow& window)
 			window.draw(w);
 		}
 	}
-	else
+	else if((currentGameplay=="Game")||(currentGameplay=="EnemyTurn"))
 	{
 		window.draw(playerStatusBar);
 		window.draw(playerHealthBar);
@@ -77,9 +82,14 @@ void Gameplay::render(sf::RenderWindow& window)
 		window.draw(enemyHealthBar);
 		window.draw(enemyShieldBar);
 		window.draw(playerEnergy);
+		window.draw(player);
 		for (int i = 0; i < inGameCards.size(); i++)
 		{
 			window.draw(inGameCards[i]);
+		}
+		if (ActionText.getString() != "default")
+		{
+			window.draw(ActionText);
 		}
 		//window.draw(cardSlot); to narazie nie
 	}
@@ -88,6 +98,8 @@ void Gameplay::render(sf::RenderWindow& window)
 
 void Gameplay::update(sf::Time& elapsed)
 {
+	player.Animate();
+
 	playerEnergy.setString(std::to_string(player.getPower()));
 	playerHealthBar.setPosition((-343 + (player.getPercentageVaule(true) * 343)), 4);
 	playerShieldBar.setPosition((-249 + (player.getPercentageVaule(false) * 249)), 47);
@@ -95,6 +107,23 @@ void Gameplay::update(sf::Time& elapsed)
 	enemyHealthBar.setPosition((1280 + 343 - (enemy.getPercentageVaule(true) * 343)), 4);
 	std::cout << enemy.getPercentageVaule(false) << std::endl;
 	enemyShieldBar.setPosition((1280 + 249 - (enemy.getPercentageVaule(false) * 249)), 47);
+	if (currentGameplay == "EnemyTurn")
+	{
+		if (elapser.asSeconds() < 3)
+		{
+			elapser += elapsed;
+		}
+		else
+		{
+			enemy.play(ActionText,player);
+			currentGameplay = "Game";
+			elapser = sf::Time::Zero;
+		}
+	}
+	if (ActionText.getString() != "default")
+	{
+		ActionText.setPosition(640 - (0.5 * ActionText.getLocalBounds().width), 680);
+	}
 }
 
 void Gameplay::click(sf::Vector2f& pos, Game* game)
@@ -115,11 +144,11 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 							playerDeck.emplace_back(database[i]);
 						}
 					}
+					player.FromFile("assets/textures/odyssey.png", false, 0, 0);
 					randomisePlayerDeck();
 					drawCards();
 					level = 0;
 					selectRandomEnemy(level);
-					enemy.linkPlayer(&player);
 					enemy.resetCurrentStats();
 					currentGameplay = ("Game");
 				}
@@ -129,16 +158,18 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					currentGameplay = ("Game");
 					for (int i = 0; i < database.size(); i++)
 					{
-						if ((database[i].gettier() == -2) || (database[i].gettier() == 0))
+						if ((database[i].gettier() == -1) || (database[i].gettier() == 0))
 						{
-							
+							playerDeck.emplace_back(database[i]);
 						}
 					}
+					player.FromFile("assets/textures/curiosity.png", false, 0, 0);
 					randomisePlayerDeck();
-					drawCards(); 
+					drawCards();
 					level = 0;
 					selectRandomEnemy(level);
-					enemy.linkPlayer(&player);
+					enemy.resetCurrentStats();
+					currentGameplay = ("Game");
 				}
 				else if (i == 2)
 				{
@@ -146,16 +177,18 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					currentGameplay = ("Game");
 					for (int i = 0; i < database.size(); i++)
 					{
-						if ((database[i].gettier() == -3) || (database[i].gettier() == 0))
+						if ((database[i].gettier() == -1) || (database[i].gettier() == 0))
 						{
-							
+							playerDeck.emplace_back(database[i]);
 						}
 					}
+					player.FromFile("assets/textures/rouge.png", true, 32, 14);
 					randomisePlayerDeck();
 					drawCards();
 					level = 0;
 					selectRandomEnemy(level);
-					enemy.linkPlayer(&player);
+					enemy.resetCurrentStats();
+					currentGameplay = ("Game");
 				}
 				else if (i == 3)
 				{
@@ -166,12 +199,47 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 	}
 	else if (currentGameplay == "Game")
 	{
-		for (int i = 0; i < inGameCards.size(); i++)
+		if ((player.returnAlive() == false) && (enemy.returnAlive() == false))
 		{
-			if (inGameCards[i].getGlobalBounds().contains(pos))
+			currentGameplay = "DoubleKill";
+		}
+		else if (player.returnAlive() == false)
+		{
+			currentGameplay = "Defeat";
+		}
+		else
+		{
+			int temp = -1;
+			for (int i = 0; i < inGameCards.size(); i++)
 			{
-				inGameCards[i].play(player,enemy);
-				currentGameplay = "EnemyTurn";
+				if (inGameCards[i].getGlobalBounds().contains(pos))
+				{
+					inGameCards[i].play(player, enemy);
+					discardPile.emplace_back(inGameCards[i]);
+					if (enemy.returnAlive() == true)
+					{
+						currentGameplay = "EnemyTurn";
+					}
+					else
+					{
+						currentGameplay = "EnemyDefeat";
+					}
+					temp = i;
+				}
+			}
+			if (temp != -1)
+			{
+				std::vector<Card> tempo;
+				for (int i = 0; i < inGameCards.size(); i++)
+				{
+					if (i != temp)
+					{
+						tempo.emplace_back(inGameCards[i]);
+					}
+				}
+				inGameCards.clear();
+				inGameCards = tempo;
+				resetInGameCards();
 			}
 		}
 	}
@@ -196,12 +264,13 @@ void Gameplay::drawCards()
 		{
 			inGameCards.emplace_back(playerDeck[playerDeck.size() - 1]);
 			playerDeck.pop_back();
-			inGameCards[inGameCards.size() - 1].setPositionTo(inGameCards.size());
+			inGameCards[inGameCards.size() - 1].changePosition(inGameCards.size());
 		}
 		else
 		{
 			playerDeck = discardPile;
 			discardPile.clear();
+			randomisePlayerDeck();
 		}
 	}
 	for (int i = 0; i < 3; i++)
@@ -212,7 +281,24 @@ void Gameplay::drawCards()
 
 void Gameplay::randomisePlayerDeck()
 {
-
+	std::vector<Card> temp;
+	std::vector<int> full;
+	for (int i = 0; i < playerDeck.size(); i++)
+	{
+		full.emplace_back(0);
+	}
+	int tempi;
+	while (temp.size() != playerDeck.size())
+	{
+		tempi = rand() % playerDeck.size();
+		if (full[tempi] == 0)
+		{
+			temp.emplace_back(playerDeck[tempi]);
+			full[tempi] = 1;
+		}
+	}
+	playerDeck.clear();
+	playerDeck = temp;
 }
 
 void Gameplay::initCardbase()
@@ -295,6 +381,15 @@ void Gameplay::initHeDatabase()
 	file2.close();
 }
 
+void Gameplay::resetInGameCards()
+{
+	drawCards();
+	for (int i = 0; i < inGameCards.size(); i++)
+	{
+		inGameCards[i].changePosition(i+1);
+	}
+}
+
 void Gameplay::selectRandomEnemy(int tier)
 {
 	std::vector<HostileEntity> h;
@@ -314,3 +409,4 @@ void Gameplay::selectRandomEnemy(int tier)
 		currentGameplay = "Victory";
 	}
 }
+

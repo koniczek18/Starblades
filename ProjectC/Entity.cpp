@@ -17,14 +17,14 @@ void Entity::setBaseStats(int _health, int _shield, int _X)
 {
 	baseStats.health = _health;
 	baseStats.shields = _shield;
-	baseStats.multiX = (_X/100);
+	baseStats.multiX = (_X/static_cast<float>(100));
 }
 
 void Entity::setMaxStats(int _health, int _shield, int _X)
 {
 	maxStats.health = _health;
 	maxStats.shields = _shield;
-	maxStats.multiX = (_X/100);
+	maxStats.multiX = (_X/ static_cast<float>(100));
 }
 
 void Entity::resetCurrentStats()
@@ -129,19 +129,31 @@ void Entity::reducePower(int _power)
 	power -= _power;
 }
 
-void Entity::addX(float _X)
+void Entity::addX(int _X)
 {
-	currentStats.multiX += _X;
+	currentStats.multiX += (static_cast<float>(_X) / static_cast<float>(100));
+	if (currentStats.multiX > 2.0)
+	{
+		currentStats.multiX = 2.0;
+	}
 }
 
-void Entity::reduceX(float _X)
+void Entity::reduceX(int _X)
 {
-	currentStats.multiX -= _X;
+	currentStats.multiX -= (static_cast<float>(_X) / static_cast<float>(100));
+	if (currentStats.multiX < 0.15)
+	{
+		currentStats.multiX = 0.15;
+	}
 }
 
 void Entity::setX(int _X)
 {
-	currentStats.multiX = (_X/100);
+	currentStats.multiX = (static_cast<float>(_X)/ static_cast<float>(100));
+	if (currentStats.multiX < 0.15)
+	{
+		currentStats.multiX = 0.15;
+	}
 }
 
 int Entity::getHealth()
@@ -179,6 +191,23 @@ float Entity::getPercentageVaule(bool wantHealth)
 	{
 		float a = (static_cast<float>(currentStats.shields) / static_cast<float>(maxStats.shields));
 		return a;
+	}
+}
+
+bool Entity::returnAlive()
+{
+	return isAlive;
+}
+
+bool Entity::areShieldsUp()
+{
+	if (currentStats.shields > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
@@ -264,34 +293,60 @@ void Entity::setClass(std::string klasa)
 {
 	if (klasa == "Odyssey")
 	{
-		setBaseStats(100.0f, 100.0f, 1.0f);
-		setMaxStats(100.0f, 100.0f, 1.0f);
+		setBaseStats(100, 100, 100);
+		setMaxStats(100, 100, 100);
 		resetCurrentStats();
 	}
 	else if (klasa == "Curiosity")
 	{
-		setBaseStats(50.0f, 150.0f, 1.2f);
-		setMaxStats(50.0f, 150.0f, 1.2f);
+		setBaseStats(50, 150, 100);
+		setMaxStats(50, 150, 100);
 		resetCurrentStats();
 	}
 	else if (klasa == "Rouge")
 	{
-		setBaseStats(75.0f, 100.0f, 1.5f);
-		setMaxStats(75.0f, 100.0f, 1.5f);
+		setBaseStats(75, 100, 100);
+		setMaxStats(75, 100, 100);
 		resetCurrentStats();
 	}
 }
 
-bool Entity::areShieldsUp()
+void Entity::FromFile(std::string _path, bool _isAnimated, int width,int no)
 {
-	if (currentStats.shields != 0)
+	path = _path;
+	tekstura.loadFromFile(path);
+	if (_isAnimated == true)
 	{
-		return true;
+		isAnimated = true;
+		widthOfAnimation = width;
+		numberOfFrames = no;
+		createFrames();
 	}
-	else
+
+}
+
+void Entity::createFrames()
+{
+	for (int i = 0; i < numberOfFrames; i++)
 	{
-		return false;
+		frames.emplace_back(widthOfAnimation * i, 0, widthOfAnimation, widthOfAnimation);
 	}
 }
 
+void Entity::Animate()
+{
+	if (isAnimated == true)
+	{
+		this->setTextureRect(frames[index]);
+		index++;
+		if (index > numberOfFrames - 1)
+		{
+			index = 0;
+		}
+	}
+	else
+	{
+		this->setTexture(tekstura, true);
+	}
+}
 

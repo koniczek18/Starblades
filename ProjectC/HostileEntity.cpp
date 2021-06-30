@@ -44,12 +44,8 @@ void HostileEntity::setAbility(int _no, int _value1, int _value2)
 	abilityDuoB[_no] = _value2;
 }
 
-void HostileEntity::linkPlayer(Entity *_player)
-{
-	player = _player;
-}
 
-void HostileEntity::play()
+void HostileEntity::play(sf::Text& tekst,Entity &player)
 {
 	std::vector<int> abilityID;
 	for (int i = 0; i < 8; i++)
@@ -80,55 +76,79 @@ void HostileEntity::play()
 		}
 	}
 	int playCode = (rand() % abilityID.size());
-	lastPlayed = playCode;
-	playEffect(playCode);
+	lastPlayed = abilityID[playCode];
+	playEffect(abilityID[playCode],tekst,player);
 
 
 
 }
 
-void HostileEntity::playEffect(int _code)
+void HostileEntity::playEffect(int _code,sf::Text& tekst,Entity &player)
 {
 	if (_code == 0)
 	{
 		float a = ability[0] * this->getX();
 		int b = (int)a;
-		player->receiveDamage(b);
+		player.receiveDamage(b);
+		std::ostringstream s(std::ostringstream::ate);
+		s << "Przeciwnik atakuje...";
+		tekst.setString(s.str());
 	}
 	else if (_code == 1)
 	{
 		this->restoreHealth(ability[1]);
+		std::ostringstream s(std::ostringstream::ate);
+		s << "Przeciwnik sie podleczyl...";
+		tekst.setString(s.str());
 	}
 	else if (_code == 2)
 	{
 		this->restoreShields(ability[2]);
+		std::ostringstream s(std::ostringstream::ate);
+		s << "Przeciwnik odnowil sobie oslony...";
+		tekst.setString(s.str());
 	}
 	else if (_code == 3)
 	{
-		player->reduceX(ability[3] / 100);
+		player.reduceX(ability[3] / 100);
+		std::ostringstream s(std::ostringstream::ate);
+		s << "Przeciwnik sabotuje twoj statek...";
+		tekst.setString(s.str());
 	}
 	else if (_code == 4)
 	{
 		this->addX(ability[4] / 100);
+		std::ostringstream s(std::ostringstream::ate);
+		s << "Przeciwnik mobilizuje sily...";
+		tekst.setString(s.str());
 	}
 	else if (_code == 5)
 	{
 		this->addX(abilityDuoA[0] / 100);
 		float a = abilityDuoB[0] * this->getX();
 		int b = (int)a;
-		player->receiveDamage(b);
+		player.receiveDamage(b);
+		std::ostringstream s(std::ostringstream::ate);
+		s << "Przeciwnik mobilizuje sily i atakuje!";
+		tekst.setString(s.str());
 	}
 	else if (_code == 6)
 	{
 		this->addX(abilityDuoA[1] / 100);
 		this->restoreHealthAndShields(abilityDuoB[1]);
+		std::ostringstream s(std::ostringstream::ate);
+		s << "Przeciwnik naprawia swoj statek i leczy zaloge...";
+		tekst.setString(s.str());
 	}
 	else if (_code == 7)
 	{
-		float a = abilityDuoA[2] * this->getX();
+		float a = abilityDuoB[2] * this->getX();
 		int b = (int)a;
-		player->receiveDamage(b);
-		this->restoreHealthAndShields(abilityDuoB[2]);
+		player.receiveDamage(b);
+		this->restoreHealthAndShields(abilityDuoA[2]);
+		std::ostringstream s(std::ostringstream::ate);
+		s << "Przeciwnik atakuje i regeneruje sily...";
+		tekst.setString(s.str());
 	}
 
 }

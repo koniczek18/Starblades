@@ -32,7 +32,6 @@ private:
 	[12] modifyTargetEnergy
 	[13] modifySelfEnergy
 	*/
-
 	sf::Texture tekstura;
 	int tier = 1;
 	int position = 0;
