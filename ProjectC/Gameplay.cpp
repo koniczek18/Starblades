@@ -137,7 +137,6 @@ void Gameplay::update(sf::Time& elapsed)
 	playerShieldBar.setPosition((-249 + (player.getPercentageVaule(false) * 249)), 47);
 
 	enemyHealthBar.setPosition((1280 + 343 - (enemy.getPercentageVaule(true) * 343)), 4);
-	std::cout << enemy.getPercentageVaule(false) << std::endl;
 	enemyShieldBar.setPosition((1280 + 249 - (enemy.getPercentageVaule(false) * 249)), 47);
 	if (currentGameplay == "EnemyTurn")
 	{
