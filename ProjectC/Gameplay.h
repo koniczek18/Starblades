@@ -13,7 +13,7 @@
 #include "Entity.h"
 #include "Card.h"
 #include "HostileEntity.h"
-#include "Jukebox.h"
+//#include "Jukebox.h"
 
 #pragma once
 
@@ -30,6 +30,7 @@ private:
 	sf::Sprite enemyStatusBar;
 	sf::Sprite cardSlot;
 	sf::Text playerEnergy;
+	sf::Text enemyEnergy;
 	sf::Text enemyName;
 
 	sf::Texture healthBar;
@@ -56,7 +57,7 @@ private:
 	int level;
 	sf::Time elapser;
 
-	Jukebox jukebox;
+	//Jukebox jukebox;
 
 public:
 

@@ -51,6 +51,11 @@ Gameplay::Gameplay()
 	playerEnergy.setCharacterSize(30);
 	playerEnergy.setFillColor(sf::Color::Black);
 
+	enemyEnergy.setFont(font);
+	enemyEnergy.setPosition(1150, 95);
+	enemyEnergy.setCharacterSize(30);
+	enemyEnergy.setFillColor(sf::Color::Black);
+
 	ActionText.setFont(font);
 	ActionText.setCharacterSize(30);
 	ActionText.setString("default");
@@ -60,7 +65,7 @@ Gameplay::Gameplay()
 
 	player.setPosition(100, 300);
 
-	jukebox.init();
+	//jukebox.init();
 
 }
 
@@ -87,6 +92,7 @@ void Gameplay::render(sf::RenderWindow& window)
 		window.draw(enemyHealthBar);
 		window.draw(enemyShieldBar);
 		window.draw(playerEnergy);
+		window.draw(enemyEnergy);
 		window.draw(player);
 		window.draw(enemy);
 		for (int i = 0; i < inGameCards.size(); i++)
@@ -124,7 +130,9 @@ void Gameplay::update(sf::Time& elapsed)
 	player.Animate();
 	enemy.Animate();
 
-	playerEnergy.setString(std::to_string(player.getPower()));
+	playerEnergy.setString(std::to_string(player.getX()));
+	enemyEnergy.setString(std::to_string(enemy.getX()));
+	
 	playerHealthBar.setPosition((-343 + (player.getPercentageVaule(true) * 343)), 4);
 	playerShieldBar.setPosition((-249 + (player.getPercentageVaule(false) * 249)), 47);
 
