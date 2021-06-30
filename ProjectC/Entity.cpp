@@ -95,6 +95,12 @@ void Entity::restoreShields(int shields)
 	updateAndCheck();
 }
 
+void Entity::repairShields()
+{
+	currentStats.shields = maxStats.shields;
+	updateAndCheck();
+}
+
 void Entity::updateAndCheck()
 {
 	if (currentStats.health > maxStats.health)
@@ -344,9 +350,52 @@ void Entity::Animate()
 			index = 0;
 		}
 	}
+	else if (movementAni == true)
+	{
+		if (movingUp == true)
+		{
+			if (index < 20)
+			{
+				this->move(0, -1);
+				index++;
+			}
+			else
+			{
+				movingUp = false;
+			}
+		}
+		else if (movingUp == false)
+		{
+			if (index > -20)
+			{
+				this->move(0, 1);
+				index--;
+			}
+			else
+			{
+				movingUp = true;
+			}
+		}
+		this->setTexture(tekstura, true);
+	}
 	else
 	{
 		this->setTexture(tekstura, true);
 	}
 }
 
+void Entity::activateMovementAnimations()
+{
+	movementAni = true;
+	int temp = rand() % 41 + (-20);
+	if (temp < 0)
+	{
+		movingUp = true;
+	}
+	else
+	{
+		movingUp = true;
+	}
+	index = temp;
+	setTexture(tekstura, true);
+}

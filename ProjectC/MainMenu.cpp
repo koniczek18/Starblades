@@ -48,7 +48,7 @@ void MainMenu::render(sf::RenderWindow& window)
 		window.draw(st);
 	}
 	window.draw(graj);
-	window.draw(pomoc);
+	//window.draw(pomoc);
 	window.draw(wyjscie);
 	window.draw(logo);
 	
@@ -69,14 +69,14 @@ void MainMenu::click(sf::Vector2f& pos,Game *game)
 	{
 		game->end();
 	}
-	else if (pomoc.getGlobalBounds().contains(pos))
-	{
-		game->changeScene("Help");
-	}
 	else if (graj.getGlobalBounds().contains(pos))
 	{
 		game->changeScene("Gameplay");
 	}
+	//else if (pomoc.getGlobalBounds().contains(pos))
+	//{
+	//	game->changeScene("Help");
+	//}
 
 }
 

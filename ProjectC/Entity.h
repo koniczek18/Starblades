@@ -28,6 +28,8 @@ private:
 	int numberOfFrames = 0;
 	std::string path = "1.png";
 	int index = 0;
+	bool movingUp = true;
+	bool movementAni = false;
 
 public:
 	Entity();
@@ -45,6 +47,7 @@ public:
 	void restoreHealthAndShields(int _health);
 	void restoreHealth(int _health);
 	void restoreShields(int _shields);
+	void repairShields();
 
 	void updateAndCheck();
 
@@ -72,6 +75,8 @@ public:
 	void FromFile(std::string _path,bool _isAnimated,int width,int no);
 	void createFrames();
 	void Animate();
+
+	void activateMovementAnimations();
 
 };
 

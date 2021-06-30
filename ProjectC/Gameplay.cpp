@@ -55,6 +55,9 @@ Gameplay::Gameplay()
 	ActionText.setCharacterSize(30);
 	ActionText.setString("default");
 
+	enemyName.setFont(font);
+	enemyName.setCharacterSize(20);
+
 	player.setPosition(100, 300);
 
 }
@@ -83,6 +86,7 @@ void Gameplay::render(sf::RenderWindow& window)
 		window.draw(enemyShieldBar);
 		window.draw(playerEnergy);
 		window.draw(player);
+		window.draw(enemy);
 		for (int i = 0; i < inGameCards.size(); i++)
 		{
 			window.draw(inGameCards[i]);
@@ -93,12 +97,30 @@ void Gameplay::render(sf::RenderWindow& window)
 		}
 		//window.draw(cardSlot); to narazie nie
 	}
+	else if ((currentGameplay == "DoubleKill") || (currentGameplay == "Defeat"))
+	{
+		window.draw(ActionText);
+	}
+	if (currentGameplay == "Victory")
+	{
+		window.draw(ActionText);
+		for (auto& r : rewardPile)
+		{
+			window.draw(r);
+		}
+	}
+	if (currentGameplay == "VictoryGame2")
+	{
+		window.draw(ActionText);
+		window.draw(player);
+	}
 
 }
 
 void Gameplay::update(sf::Time& elapsed)
 {
 	player.Animate();
+	enemy.Animate();
 
 	playerEnergy.setString(std::to_string(player.getPower()));
 	playerHealthBar.setPosition((-343 + (player.getPercentageVaule(true) * 343)), 4);
@@ -117,12 +139,50 @@ void Gameplay::update(sf::Time& elapsed)
 		{
 			enemy.play(ActionText,player);
 			currentGameplay = "Game";
-			elapser = sf::Time::Zero;
+			//elapser = sf::Time::Zero;
 		}
 	}
-	if (ActionText.getString() != "default")
+	if ((ActionText.getString() != "default")&&(currentGameplay!="Victory2"))
 	{
 		ActionText.setPosition(640 - (0.5 * ActionText.getLocalBounds().width), 680);
+	}
+	if ((currentGameplay == "Game") && (player.returnAlive() == false))
+	{
+		if ((player.returnAlive() == false) && (enemy.returnAlive() == false))
+		{
+			ActionText.setString("To koniec twojej przygody, ale przynajmniej wrog tez polegl...");
+			elapser += elapsed;
+			if (elapsed.asSeconds() > 3)
+			{
+				currentGameplay = "DoubleKill";
+				elapser = sf::Time::Zero;
+			}
+
+		}
+		else if (player.returnAlive() == false)
+		{
+			ActionText.setString("To koniec twojej przygody...");
+			elapser += elapsed;
+			if (elapsed.asSeconds() > 3)
+			{
+				currentGameplay = "Defeat";
+				elapser = sf::Time::Zero;
+			}
+		}
+	}
+	if ((currentGameplay == "Game") && (enemy.returnAlive() == false))
+	{
+		ActionText.setString("Wygrales! Pora dobrac karte... Oslony zostaly zregenerowane");
+		player.repairShields();
+		initialiseRewardPile(level);
+		currentGameplay = "Victory";
+	}
+	if (currentGameplay == "VictoryGame")
+	{
+		ActionText.setPosition(640 - (0.5 * ActionText.getLocalBounds().width), 500);
+		player.setPosition(640 - (0.5 * ActionText.getLocalBounds().width), 200);
+		ActionText.setString("ZWYCIESTWO");
+		currentGameplay = "VictoryGame2";
 	}
 }
 
@@ -170,6 +230,7 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					selectRandomEnemy(level);
 					enemy.resetCurrentStats();
 					currentGameplay = ("Game");
+					player.activateMovementAnimations();
 				}
 				else if (i == 2)
 				{
@@ -199,15 +260,6 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 	}
 	else if (currentGameplay == "Game")
 	{
-		if ((player.returnAlive() == false) && (enemy.returnAlive() == false))
-		{
-			currentGameplay = "DoubleKill";
-		}
-		else if (player.returnAlive() == false)
-		{
-			currentGameplay = "Defeat";
-		}
-		else
 		{
 			int temp = -1;
 			for (int i = 0; i < inGameCards.size(); i++)
@@ -219,10 +271,6 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					if (enemy.returnAlive() == true)
 					{
 						currentGameplay = "EnemyTurn";
-					}
-					else
-					{
-						currentGameplay = "EnemyDefeat";
 					}
 					temp = i;
 				}
@@ -240,6 +288,29 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				inGameCards.clear();
 				inGameCards = tempo;
 				resetInGameCards();
+			}
+		}
+	}
+	else if (currentGameplay == "Victory")
+	{
+		for (int i = 0; i < rewardPile.size(); i++)
+		{
+			if (rewardPile[i].getGlobalBounds().contains(pos))
+			{
+				currentGameplay = "Game";
+				playerDeck.emplace_back(rewardPile[i]);
+				rewardPile.clear();
+				for (int j = 0; j < inGameCards.size(); j++)
+				{
+					playerDeck.emplace_back(inGameCards[j]);
+				}
+				inGameCards.clear();
+				randomisePlayerDeck();
+				drawCards();
+				level++;
+				ActionText.setString("default");
+				selectRandomEnemy(level);
+				enemy.resetCurrentStats();
 			}
 		}
 	}
@@ -372,9 +443,7 @@ void Gameplay::initHeDatabase()
 			enemy.setBaseStats(std::stoi(a), std::stoi(b), std::stoi(c));
 			enemy.setMaxStats(std::stoi(a), std::stoi(b), std::stoi(c));
 			std::getline(str2, a, ',');
-			std::getline(str2, a, ',');
-			std::getline(str2, a, ',');
-			std::getline(str2, a, ',');
+			enemy.FromFile(a, false, 0, 0);
 			heDatabase.emplace_back(enemy);
 		}
 	}
@@ -403,10 +472,47 @@ void Gameplay::selectRandomEnemy(int tier)
 	if (h.size() > 0)
 	{
 		enemy = h[rand() % h.size()];
+		enemy.setScale(-1.0f, 1.f);
+		enemy.activateMovementAnimations();
+		enemy.setPosition(1100, 300);
+		enemy.rotate(270.0f);
 	}
 	else
 	{
-		currentGameplay = "Victory";
+		currentGameplay = "VictoryGame";
 	}
+}
+
+void Gameplay::initialiseRewardPile(int tier)
+{
+	int temp[3] = { -1,-1,-1 };
+	while ((temp[0] == -1)|| (temp[1] == -1)|| (temp[2] == -1))
+	{
+		int randomise = rand() % database.size();
+		if (temp[0] == -1)
+		{
+			temp[0] = randomise;
+		}
+		else if (temp[0] != randomise)
+		{
+			if (temp[1] == -1)
+			{
+				temp[1] = randomise;
+			}
+			else if ((temp[0] != randomise) && (temp[1] != randomise))
+			{
+				temp[2]=randomise;
+			}
+		}
+	}
+	rewardPile.emplace_back(database[temp[0]]);
+	rewardPile.emplace_back(database[temp[1]]);
+	rewardPile.emplace_back(database[temp[2]]);
+	rewardPile[0].changePosition(1);
+	rewardPile[1].changePosition(2);
+	rewardPile[2].changePosition(3);
+	rewardPile[0].resetTexture();
+	rewardPile[1].resetTexture();
+	rewardPile[2].resetTexture();
 }
 

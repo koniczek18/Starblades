@@ -1,4 +1,7 @@
-ID,name,tier,0 - dmg,1 - heal,2 - restore shields,3 - decrease enemy power (value/100),4 - increase self x (value/100),5 - increase x (value/100),and dmg,6 - increase self x (value/100),and heal,7- heal overall ,and dmg,health,shields,X (value/100),texture_path,is_animated?,frame x,frame y,frame no.
-1,Fighter,0,10,10,5,10,10,10,10,10,10,10,10,100,100,100,null,0,null,null,null
-2,Lancer,0,5,15,15,10,5,10,10,10,10,10,10,100,100,110,null,0,null,null,null
-3,Ufo,0,10,0,0,15,10,10,10,10,10,10,10,100,100,120,null,0,null,null,null
+ID,name,tier,0 - dmg,1 - heal,2 - restore shields,3 - decrease enemy power (value/100),4 - increase self x (value/100),5 - increase x (value/100),and dmg,6 - increase self x (value/100),and heal,7- heal overall ,and dmg,health,shields,X (value/100),texture_path
+1,Fighter,0,10,10,5,10,10,0,10,10,10,10,10,50,100,100,assets/textures/fighter.png
+2,Lancer,0,5,15,15,10,5,0,10,10,5,10,10,50,100,110,assets/textures/lancer.png
+3,Ufo,0,10,0,0,15,10,50,5,0,0,0,20,25,200,120,assets/textures/ufo.png
+4,Fighter,1,10,10,5,10,10,0,10,10,10,10,10,100,150,100,assets/textures/fighter.png
+5,Lancer,1,5,15,15,10,5,0,10,10,5,10,10,100,150,110,assets/textures/lancer.png
+6,Ufo,1,10,0,0,15,10,50,5,0,0,0,20,50,250,120,assets/textures/ufo.png

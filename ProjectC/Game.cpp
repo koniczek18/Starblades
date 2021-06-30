@@ -51,14 +51,14 @@ void Game::updateEvents()
 				{
 					mainMenu.click(mouse_position,this);
 				}
-				else if (gameState == "Help")
-				{
-					help.click(mouse_position,this);
-				}
 				else if (gameState == "Gameplay")
 				{
 					gameplay.click(mouse_position, this);
 				}
+				/*else if (gameState == "Help")
+				{
+					help.click(mouse_position, this);
+				}*/
 			}
 
 		}

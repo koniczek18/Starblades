@@ -29,6 +29,7 @@ private:
 	sf::Sprite enemyStatusBar;
 	sf::Sprite cardSlot;
 	sf::Text playerEnergy;
+	sf::Text enemyName;
 
 	sf::Texture healthBar;
 	sf::Texture shieldBar;
@@ -49,6 +50,7 @@ private:
 	std::vector<Card > playerDeck;
 	std::vector<Card> inGameCards;
 	std::vector<Card> discardPile;
+	std::vector<Card> rewardPile;
 
 	int level;
 	sf::Time elapser;
@@ -69,5 +71,6 @@ public:
 	void resetInGameCards();
 
 	void selectRandomEnemy(int tier);
+	void initialiseRewardPile(int tier);
 };
 
