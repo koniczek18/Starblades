@@ -57,6 +57,7 @@ public:
 	void addX(int _X);
 	void reduceX(int _X);
 	void setX(int _X);
+	void modifyX(int _X);
 
 	int getHealth();
 	int getShields();

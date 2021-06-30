@@ -83,23 +83,32 @@ void Card::play(Entity &owner, Entity &target)
 	owner.restoreShields(data[9]);
 	target.restoreHealth(data[10]);
 	owner.restoreShields(data[11]);
-	if (data[12] > 0)
-	{
-		target.addPower(data[12]);
-	}
-	else
-	{
-		target.reducePower(data[12]);
-	}
-	if (data[13] > 0)
-	{
-		owner.addPower(data[13]);
-	}
-	else
-	{
-		owner.reducePower(data[13]);
-	}
+	target.modifyX(data[12]);
+	owner.modifyX(data[13]);
 }
+
+//void Card::play(Entity& owner, Entity& target,Jukebox &jukebox)
+//{
+//	target.receiveDamage(data[0] * owner.getX());
+//	owner.receiveDamage(data[1]);
+//	target.receiveDamageS(data[2] * owner.getX());
+//	owner.receiveDamageS(data[3]);
+//	target.receiveDamageH(data[4] * owner.getX());
+//	owner.receiveDamageH(data[5]);
+//	target.restoreHealthAndShields(data[6]);
+//	owner.restoreHealthAndShields(data[7]);
+//	target.restoreShields(data[8]);
+//	owner.restoreShields(data[9]);
+//	target.restoreHealth(data[10]);
+//	owner.restoreShields(data[11]);
+//	target.modifyX(data[12]);
+//	owner.modifyX(data[13]);
+//
+//	if (soundID != -1)
+//	{
+//		jukebox.play(soundID);
+//	}
+//}
 
 void Card::setPositionTo(int pos)
 {
@@ -115,6 +124,12 @@ void Card::setPositionTo(int pos)
 	{
 		this->setPosition(900.0f, 400.0f);
 	}
+}
+
+void Card::setSoundID(int ID)
+{
+	if((ID>=0)&&(ID<=10))
+	soundID = ID;
 }
 
 int Card::getID()

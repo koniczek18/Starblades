@@ -60,6 +60,8 @@ Gameplay::Gameplay()
 
 	player.setPosition(100, 300);
 
+	jukebox.init();
+
 }
 
 Gameplay::~Gameplay()
@@ -218,7 +220,7 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					currentGameplay = ("Game");
 					for (int i = 0; i < database.size(); i++)
 					{
-						if ((database[i].gettier() == -1) || (database[i].gettier() == 0))
+						if ((database[i].gettier() == -2) || (database[i].gettier() == 0))
 						{
 							playerDeck.emplace_back(database[i]);
 						}
@@ -238,7 +240,7 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					currentGameplay = ("Game");
 					for (int i = 0; i < database.size(); i++)
 					{
-						if ((database[i].gettier() == -1) || (database[i].gettier() == 0))
+						if ((database[i].gettier() == -3) || (database[i].gettier() == 0))
 						{
 							playerDeck.emplace_back(database[i]);
 						}
@@ -397,6 +399,11 @@ void Gameplay::initCardbase()
 			card.settier(std::stoi(a));
 			std::getline(str, a, ',');
 			card.setTextureFromFile(a);
+			std::getline(str, a, ',');
+			if (a != "null")
+			{
+				card.setSoundID(std::stoi(a));
+			}
 			database.emplace_back(std::move(card));
 		}
 	}
@@ -489,19 +496,22 @@ void Gameplay::initialiseRewardPile(int tier)
 	while ((temp[0] == -1)|| (temp[1] == -1)|| (temp[2] == -1))
 	{
 		int randomise = rand() % database.size();
-		if (temp[0] == -1)
+		if (database[randomise].gettier() > 0)
 		{
-			temp[0] = randomise;
-		}
-		else if (temp[0] != randomise)
-		{
-			if (temp[1] == -1)
+			if (temp[0] == -1)
 			{
-				temp[1] = randomise;
+				temp[0] = randomise;
 			}
-			else if ((temp[0] != randomise) && (temp[1] != randomise))
+			else if (temp[0] != randomise)
 			{
-				temp[2]=randomise;
+				if (temp[1] == -1)
+				{
+					temp[1] = randomise;
+				}
+				else if ((temp[0] != randomise) && (temp[1] != randomise))
+				{
+					temp[2] = randomise;
+				}
 			}
 		}
 	}

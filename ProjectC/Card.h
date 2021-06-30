@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Entity.h"
+#include "Jukebox.h"
 
 #pragma once
 
@@ -29,13 +30,15 @@ private:
 	[9] restoreShieldsSelf;
 	[10] restoreHealthTarget;
 	[11] restoreHealthSelf;
-	[12] modifyTargetEnergy
-	[13] modifySelfEnergy
+	[12] modifyTargetX
+	[13] modifySelfX
 	*/
 	sf::Texture tekstura;
 	int tier = 1;
 	int position = 0;
 	std::string path;
+
+	int soundID = -1;
 
 public:
 	Card();
@@ -52,7 +55,9 @@ public:
 	void setTextureFromFile(std::string _path);
 
 	void play(Entity &owner, Entity &target);
+	//void play(Entity& owner, Entity& target, Jukebox& jukebox);
 	void setPositionTo(int pos);
+	void setSoundID(int ID);
 
 	int getID();
 	std::string getName();

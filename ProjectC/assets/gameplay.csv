@@ -1,6 +1,25 @@
-ID,name,dmgToTarget,dmgToSelf,sDmgToTarget,sDmgToSelf,hDmgToTarget,hDmgToSelf,healTarget,healSelf,restoreShieldsTarget,restoreShieldsSelf,restoreHealthTarget,restoreHealthSelf,modifyTargetEnergy,modifySelfEnergy,tier,path
-1,Missle,5,0,0,0,0,0,0,0,0,0,0,0,0,3,-1,null
-2,Laser,3,0,10,0,0,0,0,0,0,0,0,0,-2,1,-1,null
-3,Repairs,0,0,0,0,0,0,0,0,0,10,10,0,0,5,-1,null
-4,Heal crew,0,0,0,0,0,0,0,0,0,0,0,15,0,5,-1,null
-5,BOOM,20,10,0,0,0,0,0,0,0,0,0,0,0,-5,-1,null
+ID,name,dmgToTarget,dmgToSelf,sDmgToTarget,sDmgToSelf,hDmgToTarget,hDmgToSelf,healTarget,healSelf,restoreShieldsTarget,restoreShieldsSelf,restoreHealthTarget,restoreHealthSelf,modifyTargetX (value/100),modifySelfX  (value/100),tier,path,sound ID
+1,Razem silniejsi,0,0,0,0,0,0,0,0,0,10,0,20,0,0,-1,assets/cards/1.png,null
+2,Odyseja,20,0,0,0,0,0,0,10,0,0,0,0,0,0,-1,assets/cards/2.png,null
+3,Umocnienie,0,0,0,0,0,0,0,0,0,0,0,0,0,10,-1,assets/cards/3.png,null
+4,Natarcie,30,5,10,0,0,0,0,0,0,0,0,0,0,-5,-1,assets/cards/4.png,null
+5,Oswiecenie,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,assets/cards/5.png,null
+6,Przeznaczenie,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,assets/cards/6.png,null
+7,Czystosc,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,assets/cards/7.png,null
+8,Klarownosc,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-2,assets/cards/8.png,null
+9,Szybki atak,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3,assets/cards/9.png,null
+10,Podstep,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3,assets/cards/10.png,null
+11,Przygotowanie,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3,assets/cards/11.png,null
+12,Odpoczynek,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-3,assets/cards/12.png,null
+13,Naprawa,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,assets/cards/13.png,null
+14,Szybki ostrzal,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,assets/cards/14.png,null
+15,BOOM,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,assets/cards/15.png,null
+16,Przyplyw madrosci,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,assets/cards/16.png,null
+17,Petarda,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,assets/cards/17.png,null
+18,Zamet,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,assets/cards/18.png,null
+19,Laserowy ostrzal,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,assets/cards/19.png,null
+20,Atak migblystalny,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,assets/cards/20.png,null
+21,Tysiac glosow,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,assets/cards/21.png,null
+22,Incognito,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,assets/cards/22.png,null
+23,AVAST,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,assets/cards/23.png,null
+24,enemy->dealDMG(),0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,assets/cards/24.png,null

@@ -399,3 +399,16 @@ void Entity::activateMovementAnimations()
 	index = temp;
 	setTexture(tekstura, true);
 }
+
+void Entity::modifyX(int _X)
+{
+	currentStats.multiX += (static_cast<float>(_X)/100.0);
+	if (currentStats.multiX > 2.0)
+	{
+		currentStats.multiX = 2.0;
+	}
+	else if (currentStats.multiX < 0.5)
+	{
+		currentStats.multiX = 0.5;
+	}
+}

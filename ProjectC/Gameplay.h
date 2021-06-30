@@ -13,6 +13,7 @@
 #include "Entity.h"
 #include "Card.h"
 #include "HostileEntity.h"
+#include "Jukebox.h"
 
 #pragma once
 
@@ -54,6 +55,8 @@ private:
 
 	int level;
 	sf::Time elapser;
+
+	Jukebox jukebox;
 
 public:
 
