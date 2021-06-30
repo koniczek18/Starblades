@@ -51,6 +51,8 @@ private:
 	std::vector<Card> inGameCards;
 	std::vector<Card> discardPile;
 
+	int level;
+
 public:
 
 	Gameplay();

@@ -13,18 +13,18 @@ Entity::~Entity()
 {
 }
 
-void Entity::setBaseStats(int _health, int _shield, float _X)
+void Entity::setBaseStats(int _health, int _shield, int _X)
 {
 	baseStats.health = _health;
 	baseStats.shields = _shield;
-	baseStats.multiX = _X;
+	baseStats.multiX = (_X/100);
 }
 
-void Entity::setMaxStats(int _health, int _shield, float _X)
+void Entity::setMaxStats(int _health, int _shield, int _X)
 {
 	maxStats.health = _health;
 	maxStats.shields = _shield;
-	maxStats.multiX = _X;
+	maxStats.multiX = (_X/100);
 }
 
 void Entity::resetCurrentStats()
@@ -139,9 +139,9 @@ void Entity::reduceX(float _X)
 	currentStats.multiX -= _X;
 }
 
-void Entity::setX(float _X)
+void Entity::setX(int _X)
 {
-	currentStats.multiX = _X;
+	currentStats.multiX = (_X/100);
 }
 
 int Entity::getHealth()

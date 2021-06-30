@@ -121,6 +121,9 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					}
 					randomisePlayerDeck();
 					drawCards();
+					level = 0;
+					selectRandomEnemy(level);
+					enemy.linkPlayer(&player);
 				}
 				else if (i == 1)
 				{
@@ -134,7 +137,10 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 						}
 					}
 					randomisePlayerDeck();
-					drawCards();
+					drawCards(); 
+					level = 0;
+					selectRandomEnemy(level);
+					enemy.linkPlayer(&player);
 				}
 				else if (i == 2)
 				{
@@ -149,6 +155,9 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					}
 					randomisePlayerDeck();
 					drawCards();
+					level = 0;
+					selectRandomEnemy(level);
+					enemy.linkPlayer(&player);
 				}
 				else if (i == 3)
 				{
@@ -164,6 +173,7 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 			if (inGameCards[i].getGlobalBounds().contains(pos))
 			{
 				inGameCards[i].play(player,enemy);
+				currentGameplay = "EnemyTurn";
 			}
 		}
 	}
@@ -234,51 +244,55 @@ void Gameplay::initCardbase()
 			database.emplace_back(std::move(card));
 		}
 	}
+	file.close();
 }
 
 void Gameplay::initHeDatabase()
 {
-	std::fstream file("assets/enemy.csv", std::fstream::in);
-	if (file.is_open())
+	std::fstream file2("assets/enemy.csv", std::fstream::in);
+	if (file2.is_open())
 	{
-		std::string line;
-		std::getline(file, line);
-		while (std::getline(file, line))
+		std::string line2;
+		std::getline(file2, line2);
+		while (std::getline(file2, line2))
 		{
-			std::stringstream str(line);
+			std::stringstream str2(line2);
 			HostileEntity enemy;
-			enemy.linkPlayer(&player);
 			std::string a;
-			std::getline(str, a, ',');
+			std::string b;
+			std::string c;
+			std::getline(str2, a, ',');
 			enemy.setID(std::stoi(a));
-			std::getline(str, a, ',');
+			std::getline(str2, a, ',');
 			enemy.setName(a);
-			std::getline(str, a, ',');
+			std::getline(str2, a, ',');
 			enemy.setTier(std::stoi(a));
-			/*for (int i = 0; i < 8; i++)
+			for (int i = 0; i < 8; i++)
 			{
-				if (i < 6)
+				if (i < 5)
 				{
-					std::getline(str, a, ',');
+					std::getline(str2, a, ',');
 					enemy.setAbility(i, std::stoi(a));
 				}
 				else
 				{
-					std::getline(str, a, ',');
-					std::string b = a;
-					std::getline(str, a, ',');
-					enemy.setAbility(i, std::stoi(b), std::stoi(a));
+					std::getline(str2, a, ',');
+					std::getline(str2, b, ',');
+					enemy.setAbility(i-5, std::stoi(a), std::stoi(b));
 				}
 			}
-			std::getline(str, a, ',');
-			std::string c = a;
-			std::getline(str, a, ',');
-			std::string b = a;
-			std::getline(str, a, ',');
-			enemy.setBaseStats(std::stoi(c), std::stoi(b), std::stof(a));*/
+			std::getline(str2, a, ',');
+			std::getline(str2, b, ',');
+			std::getline(str2, c, ',');
+			enemy.setBaseStats(std::stoi(a), std::stoi(b), std::stoi(c));
+			std::getline(str2, a, ',');
+			std::getline(str2, a, ',');
+			std::getline(str2, a, ',');
+			std::getline(str2, a, ',');
 			heDatabase.emplace_back(enemy);
 		}
 	}
+	file2.close();
 }
 
 void Gameplay::selectRandomEnemy(int tier)

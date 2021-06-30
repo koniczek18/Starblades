@@ -8,7 +8,8 @@ private:
 	std::string name;
 	int tier;
 	int ability[5] = { 0,0,0,0,0 }; //0-Dmg, 1-Heal HP, 2-Restore Shields, 3-Decrease enemy power, 4 - Increase sefl X
-	std::pair<int, int> abilityDuo[3]; //5 - Increase self X and dmg, 6 - Increase self X and heal Overall, 7 - Heal Overall and dmg
+	int abilityDuoA[3] = { 0,0,0 }; //5 - Increase self X and dmg, 6 - Increase self X and heal Overall, 7 - Heal Overall and dmg
+	int abilityDuoB[3] = { 0,0,0 };
 	Entity* player;
 	int lastPlayed = -1;
 public:

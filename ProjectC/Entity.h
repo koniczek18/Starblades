@@ -27,8 +27,8 @@ public:
 	Entity(std::string type);
 	~Entity();
 
-	void setBaseStats(int _health, int _shields, float _X);
-	void setMaxStats(int _health, int _shield, float _X);
+	void setBaseStats(int _health, int _shields, int _X);
+	void setMaxStats(int _health, int _shield, int _X);
 	void resetCurrentStats();
 
 	void receiveDamage(int _dmg);
@@ -46,7 +46,7 @@ public:
 
 	void addX(float _X);
 	void reduceX(float _X);
-	void setX(float _X);
+	void setX(int _X);
 
 	int getHealth();
 	int getShields();

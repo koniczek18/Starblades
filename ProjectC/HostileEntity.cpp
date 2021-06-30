@@ -5,10 +5,6 @@ HostileEntity::HostileEntity()
 	ID = 0;
 	name = "Default";
 	tier = 0;
-	for (int i = 0; i < 3; i++)
-	{
-		abilityDuo[i] = std::make_pair(0, 0);
-	}
 }
 
 HostileEntity::~HostileEntity()
@@ -44,14 +40,8 @@ void HostileEntity::setAbility(int _no,int _value)
 
 void HostileEntity::setAbility(int _no, int _value1, int _value2)
 {
-	if ((_no >= 5) && (_no <= 7))
-	{
-		abilityDuo[_no] = std::make_pair(_value1, _value2);
-	}
-	else
-	{
-		std::cout << "ERROR" << std::endl;
-	}
+	abilityDuoA[_no] = _value1;
+	abilityDuoB[_no] = _value2;
 }
 
 void HostileEntity::linkPlayer(Entity *_player)
@@ -75,7 +65,7 @@ void HostileEntity::play()
 			}
 			else
 			{
-				if (abilityDuo[i - 5] != std::make_pair(0, 0))
+				if ((abilityDuoA[i-5]!=0)||(abilityDuoB[i-5] != 0))
 				{
 					abilityID.emplace_back(i);
 				}
@@ -123,22 +113,22 @@ void HostileEntity::playEffect(int _code)
 	}
 	else if (_code == 5)
 	{
-		this->addX(abilityDuo[0].first / 100);
-		float a = abilityDuo[0].second * this->getX();
+		this->addX(abilityDuoA[0] / 100);
+		float a = abilityDuoB[0] * this->getX();
 		int b = (int)a;
 		player->receiveDamage(b);
 	}
 	else if (_code == 6)
 	{
-		this->addX(abilityDuo[1].first / 100);
-		this->restoreHealthAndShields(abilityDuo[1].second);
+		this->addX(abilityDuoA[1] / 100);
+		this->restoreHealthAndShields(abilityDuoB[1]);
 	}
 	else if (_code == 7)
 	{
-		float a = abilityDuo[2].second * this->getX();
+		float a = abilityDuoA[2] * this->getX();
 		int b = (int)a;
 		player->receiveDamage(b);
-		this->restoreHealthAndShields(abilityDuo[2].first);
+		this->restoreHealthAndShields(abilityDuoB[2]);
 	}
 
 }
