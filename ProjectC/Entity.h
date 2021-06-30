@@ -52,7 +52,7 @@ public:
 	int getShields();
 	int getPower();
 	float getX();
-	int getPercentageVaule(bool wantHealth);
+	float getPercentageVaule(bool wantHealth);
 
 	bool returnAlive();
 	bool areShieldsUp();

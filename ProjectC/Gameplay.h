@@ -29,7 +29,6 @@ private:
 	sf::Sprite enemyStatusBar;
 	sf::Sprite cardSlot;
 	sf::Text playerEnergy;
-	sf::Text enemyEnergy;
 
 	sf::Texture healthBar;
 	sf::Texture shieldBar;
@@ -41,6 +40,7 @@ private:
 	bool playerTurn = true;
 	Entity player;
 	HostileEntity enemy;
+	sf::Text enemyAction;
 
 	std::string currentGameplay = "Class selection";
 	std::vector<sf::Text> classSelection;

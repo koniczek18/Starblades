@@ -164,19 +164,21 @@ float Entity::getX()
 	return currentStats.multiX;
 }
 
-int Entity::getPercentageVaule(bool wantHealth)
+float Entity::getPercentageVaule(bool wantHealth)
 {
 	if (maxStats.health == 0)
 	{
 		return 0;
 	}
-	if (wantHealth == true)
+	else if (wantHealth == true)
 	{
-		return currentStats.health / maxStats.health;
+		
+		return (static_cast<float>(currentStats.health) / static_cast<float>(maxStats.health));
 	}
 	else
 	{
-		return currentStats.shields / maxStats.shields;
+		float a = (static_cast<float>(currentStats.shields) / static_cast<float>(maxStats.shields));
+		return a;
 	}
 }
 

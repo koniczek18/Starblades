@@ -50,10 +50,7 @@ Gameplay::Gameplay()
 	playerEnergy.setPosition(5, 95);
 	playerEnergy.setCharacterSize(30);
 	playerEnergy.setFillColor(sf::Color::Black);
-	enemyEnergy.setFont(font);
-	enemyEnergy.setPosition(1250, 95);
-	enemyEnergy.setCharacterSize(30);
-	enemyEnergy.setFillColor(sf::Color::Red);
+
 
 }
 
@@ -80,10 +77,8 @@ void Gameplay::render(sf::RenderWindow& window)
 		window.draw(enemyHealthBar);
 		window.draw(enemyShieldBar);
 		window.draw(playerEnergy);
-		window.draw(enemyEnergy);
 		for (int i = 0; i < inGameCards.size(); i++)
 		{
-			//inGameCards[i].resetTexture();
 			window.draw(inGameCards[i]);
 		}
 		//window.draw(cardSlot); to narazie nie
@@ -94,10 +89,12 @@ void Gameplay::render(sf::RenderWindow& window)
 void Gameplay::update(sf::Time& elapsed)
 {
 	playerEnergy.setString(std::to_string(player.getPower()));
-	enemyEnergy.setString(std::to_string(enemy.getPower()));
-	float newX = (-343 + (player.getPercentageVaule(true) * 343));
-	std::cout << newX << std::endl;
-	playerHealthBar.setPosition(newX, 4);
+	playerHealthBar.setPosition((-343 + (player.getPercentageVaule(true) * 343)), 4);
+	playerShieldBar.setPosition((-249 + (player.getPercentageVaule(false) * 249)), 47);
+
+	enemyHealthBar.setPosition((1280 + 343 - (enemy.getPercentageVaule(true) * 343)), 4);
+	std::cout << enemy.getPercentageVaule(false) << std::endl;
+	enemyShieldBar.setPosition((1280 + 249 - (enemy.getPercentageVaule(false) * 249)), 47);
 }
 
 void Gameplay::click(sf::Vector2f& pos, Game* game)
@@ -111,7 +108,6 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				if (i == 0)
 				{
 					player.setClass("Odyssey");
-					currentGameplay=("Game");
 					for (int i = 0; i < database.size(); i++)
 					{
 						if ((database[i].gettier() == -1)|| (database[i].gettier() == 0))
@@ -124,6 +120,8 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 					level = 0;
 					selectRandomEnemy(level);
 					enemy.linkPlayer(&player);
+					enemy.resetCurrentStats();
+					currentGameplay = ("Game");
 				}
 				else if (i == 1)
 				{
@@ -166,7 +164,7 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 			}
 		}
 	}
-	if (currentGameplay == "Game")
+	else if (currentGameplay == "Game")
 	{
 		for (int i = 0; i < inGameCards.size(); i++)
 		{
@@ -202,7 +200,8 @@ void Gameplay::drawCards()
 		}
 		else
 		{
-			
+			playerDeck = discardPile;
+			discardPile.clear();
 		}
 	}
 	for (int i = 0; i < 3; i++)
@@ -285,6 +284,7 @@ void Gameplay::initHeDatabase()
 			std::getline(str2, b, ',');
 			std::getline(str2, c, ',');
 			enemy.setBaseStats(std::stoi(a), std::stoi(b), std::stoi(c));
+			enemy.setMaxStats(std::stoi(a), std::stoi(b), std::stoi(c));
 			std::getline(str2, a, ',');
 			std::getline(str2, a, ',');
 			std::getline(str2, a, ',');
