@@ -139,7 +139,7 @@ void Gameplay::update(sf::Time& elapsed)
 		{
 			enemy.play(ActionText,player);
 			currentGameplay = "Game";
-			//elapser = sf::Time::Zero;
+			elapser = sf::Time::Zero;
 		}
 	}
 	if ((ActionText.getString() != "default")&&(currentGameplay!="Victory2"))
