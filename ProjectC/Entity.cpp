@@ -412,3 +412,8 @@ void Entity::modifyX(int _X)
 		currentStats.multiX = 0.5;
 	}
 }
+
+void Entity::restetX()
+{
+	currentStats.multiX = baseStats.multiX;
+}

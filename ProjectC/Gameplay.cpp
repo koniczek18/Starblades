@@ -190,6 +190,7 @@ void Gameplay::update(sf::Time& elapsed)
 	{
 		ActionText.setString("Wygrales! Pora dobrac karte... Oslony zostaly zregenerowane");
 		player.repairShields();
+		player.restetX();
 		initialiseRewardPile(level);
 		currentGameplay = "Victory";
 	}
@@ -345,6 +346,13 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				selectRandomEnemy(level);
 				enemy.resetCurrentStats();
 			}
+		}
+	}
+	else if (currentGameplay == "VictoryGame2")
+	{
+		if (ActionText.getGlobalBounds().contains(pos))
+		{
+			exit(0);
 		}
 	}
 }

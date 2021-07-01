@@ -58,6 +58,7 @@ public:
 	void reduceX(int _X);
 	void setX(int _X);
 	void modifyX(int _X);
+	void restetX();
 
 	int getHealth();
 	int getShields();
