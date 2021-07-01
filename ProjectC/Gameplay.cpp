@@ -67,6 +67,10 @@ Gameplay::Gameplay()
 
 	//jukebox.init();
 
+	cosmos.loadFromFile("assets/textures/cosmos.jpg");
+	cosmosS.setTexture(cosmos, true);
+	cosmosS.setScale(1.3f, 1.3f);
+	cosmosS.setPosition(0, 0);
 }
 
 Gameplay::~Gameplay()
@@ -85,6 +89,7 @@ void Gameplay::render(sf::RenderWindow& window)
 	}
 	else if((currentGameplay=="Game")||(currentGameplay=="EnemyTurn"))
 	{
+		window.draw(cosmosS);
 		window.draw(playerStatusBar);
 		window.draw(playerHealthBar);
 		window.draw(playerShieldBar);
@@ -119,6 +124,7 @@ void Gameplay::render(sf::RenderWindow& window)
 	}
 	if (currentGameplay == "VictoryGame2")
 	{
+		window.draw(cosmosS);
 		window.draw(ActionText);
 		window.draw(player);
 	}
@@ -193,6 +199,18 @@ void Gameplay::update(sf::Time& elapsed)
 		player.setPosition(640 - (0.5 * ActionText.getLocalBounds().width), 200);
 		ActionText.setString("ZWYCIESTWO");
 		currentGameplay = "VictoryGame2";
+	}
+	if ((currentGameplay == "Game") && (player.returnAlive() == true) && (ActionText.getString() != "default"))
+	{
+		if (elapser.asSeconds() < 4)
+		{
+			elapser+=elapsed;
+		}
+		else
+		{
+			ActionText.setString("default");
+			elapser=sf::Time::Zero;
+		}
 	}
 }
 

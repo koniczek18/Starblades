@@ -37,6 +37,8 @@ private:
 	sf::Texture shieldBar;
 	sf::Texture statusBar;
 	sf::Texture cardSlotTX;
+	sf::Texture cosmos;
+	sf::Sprite cosmosS;
 
 	sf::Font font;
 
