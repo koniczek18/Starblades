@@ -148,6 +148,7 @@ void Gameplay::update(sf::Time& elapsed)
 		{
 			enemy.play(ActionText,player);
 			currentGameplay = "Game";
+			drawCards();
 			elapser = sf::Time::Zero;
 		}
 	}
@@ -276,7 +277,12 @@ void Gameplay::click(sf::Vector2f& pos, Game* game)
 				if (inGameCards[i].getGlobalBounds().contains(pos))
 				{
 					inGameCards[i].play(player, enemy);
-					discardPile.emplace_back(inGameCards[i]);
+					int temp = inGameCards.size();
+					for (int j = 0; j < temp; j++)
+					{
+						discardPile.emplace_back(inGameCards[j]);
+					}
+					inGameCards.clear();
 					if (enemy.returnAlive() == true)
 					{
 						currentGameplay = "EnemyTurn";
