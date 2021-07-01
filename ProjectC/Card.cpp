@@ -32,7 +32,7 @@ void Card::setData(std::vector<int> _data)
 
 void Card::setData(int _id, int value)
 {
-	if ((_id > -1) && (_id < 12))
+	if ((_id > -1) && (_id < 14))
 	{
 		data[_id] = value;
 	}
